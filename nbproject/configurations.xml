@@ -9,6 +9,7 @@
       <itemPath>adc_fnc.h</itemPath>
       <itemPath>imu_fnc.h</itemPath>
       <itemPath>fuel_fnc.h</itemPath>
+      <itemPath>ble.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

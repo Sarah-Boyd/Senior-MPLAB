@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=main_code.X
+PROJECTNAME=Senior-MPLAB
 
 # Active Configuration
 DEFAULTCONF=default

@@ -1,55 +1,147 @@
-/* 
-* File:   main_code.c
- * Author: mered
- *
- * Created on February 18, 2024, 10:46 AM
- */
-// FOSCSEL
-#pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
-#pragma config IESO = ON                // Two-speed Oscillator Start-up Enable bit (Start up device with FRC, then switch to user-selected oscillator source)
+///* 
+//* File:   main_code.c
+// * Author: mered
+// *
+// * Created on February 18, 2024, 10:46 AM
+// */
+//// FOSCSEL
+//#pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
+//#pragma config IESO = ON                // Two-speed Oscillator Start-up Enable bit (Start up device with FRC, then switch to user-selected oscillator source)
+//
+//// FOSC
+//#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
+//#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
+//#pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+//#pragma config PLLKEN = ON              // PLL Lock Status Control (PLL lock signal will be used to disable PLL clock output if lock is lost)
+//#pragma config XTCFG = G3               // XT Config (24-32 MHz crystals)
+//#pragma config XTBST = ENABLE           // XT Boost (Boost the kick-start)
+//
+//// FWDT
+//#pragma config RWDTPS = PS2147483648    // Run Mode Watchdog Timer Post Scaler select bits (1:2147483648)
+//#pragma config RCLKSEL = LPRC           // Watchdog Timer Clock Select bits (Always use LPRC)
+//#pragma config WINDIS = ON              // Watchdog Timer Window Enable bit (Watchdog Timer operates in Non-Window mode)
+//#pragma config WDTWIN = WIN25           // Watchdog Timer Window Select bits (WDT Window is 25% of WDT period)
+//#pragma config SWDTPS = PS2147483648    // Sleep Mode Watchdog Timer Post Scaler select bits (1:2147483648)
+//#pragma config FWDTEN = ON_SW           // Watchdog Timer Enable bit (WDT controlled via SW, use WDTCON.ON bit)
+//
+//// FPOR
+//#pragma config BISTDIS = DISABLED       // Memory BIST Feature Disable (mBIST on reset feature disabled)
+//
+//// FICD
+//#pragma config ICS = PGD2               // ICD Communication Channel Select bits (Communicate on PGC3 and PGD3)
+//#pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
+//#pragma config NOBTSWP = DISABLED       // BOOTSWP instruction disable bit (BOOTSWP instruction is disabled)
+//
+//// FDEVOPT
+//#pragma config ALTI2C1 = OFF            // Alternate I2C1 Pin bit (I2C1 mapped to SDA1/SCL1 pins)
+//#pragma config ALTI2C2 = OFF            // Alternate I2C2 Pin bit (I2C2 mapped to SDA2/SCL2 pins)
+//#pragma config ALTI2C3 = ON           // Alternate I2C3 Pin bit (I2C3 mapped to SDA3/SCL3 pins)
+//#pragma config SMBEN = SMBUS            // SM Bus Enable (SMBus input threshold is enabled)
+//#pragma config SPI2PIN = PPS            // SPI2 Pin Select bit (SPI2 uses I/O remap (PPS) pins)
+//
+//// FALTREG
+//#pragma config CTXT1 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 1 bits (Not Assigned)
+//#pragma config CTXT2 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 2 bits (Not Assigned)
+//#pragma config CTXT3 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 3 bits (Not Assigned)
+//#pragma config CTXT4 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 4 bits (Not Assigned)
+//
+//#define FCY 60000000
 
+//BLE CONFIG SETTTINGS
+ 
+// FSEC
+#pragma config BWRP = OFF               // Boot Segment Write-Protect bit (Boot Segment may be written)
+#pragma config BSS = DISABLED           // Boot Segment Code-Protect Level bits (No Protection (other than BWRP))
+#pragma config BSEN = OFF               // Boot Segment Control bit (No Boot Segment)
+#pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
+#pragma config GSS = DISABLED           // General Segment Code-Protect Level bits (No Protection (other than GWRP))
+#pragma config CWRP = OFF               // Configuration Segment Write-Protect bit (Configuration Segment may be written)
+#pragma config CSS = DISABLED           // Configuration Segment Code-Protect Level bits (No Protection (other than CWRP))
+#pragma config AIVTDIS = OFF            // Alternate Interrupt Vector Table bit (Disabled AIVT)
+ 
+// FBSLIM
+#pragma config BSLIM = 0x1FFF           // Boot Segment Flash Page Address Limit bits (Enter Hexadecimal value)
+ 
+// FSIGN
+ 
+// FOSCSEL
+#pragma config FNOSC = PRI              // Oscillator Source Selection (Primary Oscillator (XT, HS, EC))
+#pragma config IESO = ON                // Two-speed Oscillator Start-up Enable bit (Start up device with FRC, then switch to user-selected oscillator source)
+ 
 // FOSC
-#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
+#pragma config POSCMD = HS              // Primary Oscillator Mode Select bits (HS Crystal Oscillator Mode)
 #pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+#pragma config FCKSM = CSDCMD           // Clock Switching Mode bits (Both Clock switching and Fail-safe Clock Monitor are disabled)
 #pragma config PLLKEN = ON              // PLL Lock Status Control (PLL lock signal will be used to disable PLL clock output if lock is lost)
 #pragma config XTCFG = G3               // XT Config (24-32 MHz crystals)
 #pragma config XTBST = ENABLE           // XT Boost (Boost the kick-start)
-
+ 
 // FWDT
 #pragma config RWDTPS = PS2147483648    // Run Mode Watchdog Timer Post Scaler select bits (1:2147483648)
 #pragma config RCLKSEL = LPRC           // Watchdog Timer Clock Select bits (Always use LPRC)
 #pragma config WINDIS = ON              // Watchdog Timer Window Enable bit (Watchdog Timer operates in Non-Window mode)
 #pragma config WDTWIN = WIN25           // Watchdog Timer Window Select bits (WDT Window is 25% of WDT period)
 #pragma config SWDTPS = PS2147483648    // Sleep Mode Watchdog Timer Post Scaler select bits (1:2147483648)
-#pragma config FWDTEN = ON_SW           // Watchdog Timer Enable bit (WDT controlled via SW, use WDTCON.ON bit)
-
+#pragma config FWDTEN = ON              // Watchdog Timer Enable bit (WDT enabled in hardware)
+ 
 // FPOR
 #pragma config BISTDIS = DISABLED       // Memory BIST Feature Disable (mBIST on reset feature disabled)
-
+ 
 // FICD
-#pragma config ICS = PGD2               // ICD Communication Channel Select bits (Communicate on PGC3 and PGD3)
+//#pragma config ICS = PGD2               // ICD Communication Channel Select bits (Communicate on PGC2 and PGD2)
 #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
 #pragma config NOBTSWP = DISABLED       // BOOTSWP instruction disable bit (BOOTSWP instruction is disabled)
-
+ 
+// FDMTIVTL
+#pragma config DMTIVTL = 0xFFFF         // Dead Man Timer Interval low word (Enter Hexadecimal value)
+ 
+// FDMTIVTH
+#pragma config DMTIVTH = 0xFFFF         // Dead Man Timer Interval high word (Enter Hexadecimal value)
+ 
+// FDMTCNTL
+#pragma config DMTCNTL = 0xFFFF         // Lower 16 bits of 32 bit DMT instruction count time-out value (0-0xFFFF) (Enter Hexadecimal value)
+ 
+// FDMTCNTH
+#pragma config DMTCNTH = 0xFFFF         // Upper 16 bits of 32 bit DMT instruction count time-out value (0-0xFFFF) (Enter Hexadecimal value)
+ 
+// FDMT
+#pragma config DMTDIS = OFF             // Dead Man Timer Disable bit (Dead Man Timer is Disabled and can be enabled by software)
+ 
 // FDEVOPT
 #pragma config ALTI2C1 = OFF            // Alternate I2C1 Pin bit (I2C1 mapped to SDA1/SCL1 pins)
 #pragma config ALTI2C2 = OFF            // Alternate I2C2 Pin bit (I2C2 mapped to SDA2/SCL2 pins)
-#pragma config ALTI2C3 = ON           // Alternate I2C3 Pin bit (I2C3 mapped to SDA3/SCL3 pins)
+#pragma config ALTI2C3 = OFF            // Alternate I2C3 Pin bit (I2C3 mapped to SDA3/SCL3 pins)
 #pragma config SMBEN = SMBUS            // SM Bus Enable (SMBus input threshold is enabled)
 #pragma config SPI2PIN = PPS            // SPI2 Pin Select bit (SPI2 uses I/O remap (PPS) pins)
-
+ 
 // FALTREG
 #pragma config CTXT1 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 1 bits (Not Assigned)
 #pragma config CTXT2 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 2 bits (Not Assigned)
 #pragma config CTXT3 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 3 bits (Not Assigned)
 #pragma config CTXT4 = OFF              // Specifies Interrupt Priority Level (IPL) Associated to Alternate Working Register 4 bits (Not Assigned)
+ 
+// FBTSEQ
+#pragma config BSEQ = 0xFFF             // Relative value defining which partition will be active after device Reset; the partition containing a lower boot number will be active (Enter Hexadecimal value)
+#pragma config IBSEQ = 0xFFF            // The one's complement of BSEQ; must be calculated by the user and written during device programming. (Enter Hexadecimal value)
+ 
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
+ 
+#pragma config ICS = 2
+ 
+#include <xc.h>
+ 
+#define FCY 16000000UL
 
-#define FCY 60000000
+
+
+
 
 #include <xc.h>
 #include "libpic30.h"
+#include "string.h"
 #include "config.h"
+#include "ble.h"
 #include "i2c_fnc.h"
 #include "adc_fnc.h"
 #include "imu_fnc.h"
@@ -88,7 +180,7 @@
 #define ADD_R    0x31
 #define ADD_DATA1 0x12
 #define ADD_DATA2 0x14
-
+#define rxFlag IFS0bits.U1RXIF
 
 //program variables
 volatile int dataAN0;
@@ -119,6 +211,7 @@ void __attribute__((interrupt, no_auto_psv)) _MI2C3Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _INT1Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void);
+void _ISR _U1RXInterrupt(void);
 
 //INITIALIZATION FUNCTIONS
 void init_pins(void);
@@ -133,16 +226,16 @@ void read_sensor_data();
 //MAIN CODE--------------------------------------------------------------------
 
 int main(){        
-    //SETUP CLOCK
-    // CPU clock is 8MHz*60/1/1/2/2/2 = 60MIPS
-    _POST1DIV = POSTD1; // :2
-    _POST2DIV = POSTD2; // :1
-    _PLLPRE = PRE_PLL; // :1
-    PLLFBD = FBD_PLL; // x60
-    __builtin_write_OSCCONH(1); // 1=FRCPLL
-    __builtin_write_OSCCONL(1);
-    while (_COSC != 1);
-    while (OSCCONbits.LOCK != 1);    
+//    //SETUP CLOCK
+//    // CPU clock is 8MHz*60/1/1/2/2/2 = 60MIPS
+//    _POST1DIV = POSTD1; // :2
+//    _POST2DIV = POSTD2; // :1
+//    _PLLPRE = PRE_PLL; // :1
+//    PLLFBD = FBD_PLL; // x60
+//    __builtin_write_OSCCONH(1); // 1=FRCPLL
+//    __builtin_write_OSCCONL(1);
+//    while (_COSC != 1);
+//    while (OSCCONbits.LOCK != 1);    
     
     //setup button
     ANSELCbits.ANSELC0 = 0; //C0 is set as digital, this is AN_1
@@ -153,9 +246,9 @@ int main(){
     //initialize pin interrupts
 
     //everything else goes in 'setup device function' at the end of the BLE  button interrupt code
-    init_Timer1();
-    i2c_init();
-    init_ADC();
+//    init_Timer1();
+////    i2c_init();
+//    init_ADC();
     
     //init_pins();
     //init_extInt();
@@ -168,15 +261,12 @@ int main(){
 //    power_on_reset();
 //    config_fuelgauge();
     
-    while (1) {
+    Setup();
+    // Send AT commands on a button press
+    while(1){
         if (PORTCbits.RC0 == 0){ // Button is pressed
-            //imu_data(0x0C);
-            
-//            b_p = read_percent();
-//            b_v = read_voltage();
-//            read_config();
-            
-            
+            BLESetup();
+            HandleData();           
         }
     }
 }
@@ -370,4 +460,31 @@ void init_extInt(){
     IFS0bits.INT1IF = 0;    //Reset INT1 interrupt flag 
     IPC3bits.INT1IP = 1; //set priority 2
     IEC0bits.INT1IE = 1;  //enable INT1
+}
+
+void _ISR _U1RXInterrupt(void){
+    if (U1RXREG == 0x4B){
+        ATFlag = 0; // Received K! Lower flag to send next command
+    }
+    if (U1RXREG == 0x3E){//check for > sign
+        dataFlag = 0; // Ready for data!!
+        ATFlag = 0;
+    }
+    else if (U1RXREG == 0x43){
+        conCount++;
+    }
+    else if (U1RXREG == 0x4F && conCount == 1){
+        conCount++;
+    }
+    else if (U1RXREG == 0x4E && conCount == 2){
+        conCount++;
+    }
+    else if (U1RXREG == 0x4E && conCount == 3){
+        conFlag = 0; // connection has been established!
+        conCount = 0;
+    }
+    else {
+        conCount = 0;
+    }
+    rxFlag = 0; // Lower interrupt flag
 }
