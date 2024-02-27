@@ -149,6 +149,10 @@ int main(){
     TRISCbits.TRISC0 = 1; //C0 is set as a digital input
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
+    //initialize UART
+    //initialize pin interrupts
+
+    //everything else goes in 'setup device function' at the end of the BLE  button interrupt code
     init_Timer1();
     i2c_init();
     init_ADC();
