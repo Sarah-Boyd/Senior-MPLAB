@@ -61,7 +61,7 @@ void imu_check_config(){
     i2c_ack();
     i2c_stop();
     
-    __delay_ms(1)
+    __delay_ms(1);
 }
 
 
@@ -224,7 +224,7 @@ void imu_check(void){
     i2c_ack();
     i2c_stop();
     
-    __delay_ms(1)
+    __delay_ms(1);
 }
 
 void imu_init(void){

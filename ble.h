@@ -115,6 +115,6 @@ void HandleData(){
     while (conFlag == 1){ // wait until connection is established
  
     }
-    __delay_ms(5000)
+    __delay_ms(5000);
     SendData("AT+BLEGATTSNTFY=0,1,6,2", "83"); // THIS WORKS!!!
 }
