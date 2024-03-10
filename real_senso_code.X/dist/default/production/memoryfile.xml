@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/debug/real_main_code.X.debug.elf">
+  <executable name="dist/default/production/real_senso_code.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>24576</length>
-      <used>250</used>
-      <free>24326</free>
+      <used>40</used>
+      <free>24536</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>269184</length>
-      <used>19080</used>
-      <free>250104</free>
+      <used>2988</used>
+      <free>266196</free>
     </memory>
   </executable>
 </project>

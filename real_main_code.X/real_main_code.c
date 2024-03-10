@@ -86,8 +86,8 @@
 //PIN DEFINITIONS
 #define BATTERY_INT_PIN 38
 #define BLE_INT_PIN 43
-#define BLE_LED_PIN LATAbits.LATA2
-#define BLE_LED_PIN_SET TRISAbits.TRISA2
+#define BLE_LED_PIN LATBbits.LATB11
+#define BLE_LED_PIN_SET TRISBbits.TRISB11
 #define PWR_PIN_SET TRISAbits.TRISA1
 #define PWR_PIN     LATAbits.LATA2
 
@@ -96,8 +96,8 @@
 #define ADD_W    0x30
 #define ADD_R    0x31
 #define ADD_DATA 0x12
-#define SENSOR_W 0x51
-#define SENSOR_R 0x50
+#define SENSOR_W 0x50
+#define SENSOR_R 0x51
 #define SENSOR_DATA 0x14
 #define rxFlag IFS0bits.U1RXIF
 
@@ -155,13 +155,13 @@ int main(){
     while (OSCCONbits.LOCK != 1);    
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
-    //i2c_init();
+    i2c_init();
     //config_imu();
-    //init_Timer1();
-    //init_ADC();
+    init_Timer1();
+    init_ADC();
     
-    //init_pins();
-    //init_extInt();
+    init_pins();
+    init_extInt();
     
     //INITIALIZE IMU AND FUEL GAUGE
 //    power_on_reset();
@@ -169,14 +169,15 @@ int main(){
     
     //reset_fuelgauge();
     
-    Setup();
-    BLESetup();
+    //Setup();
+    //BLESetup();
     // Send AT commands on a button press
     while(1){
-//        if(READ_BATTERY == 1){
-//            READ_BATTERY = 0;
-//            battery_soc = read_battery_soc();
-//        }
+        BLE_LED_PIN = 1;
+        if(READ_BATTERY == 1){
+            READ_BATTERY = 0;
+            battery_soc = read_battery_soc();
+        }
 //        if(READ_SENSORS == 1){
 //            READ_SENSORS = 0;
 //            read_sensor_data();
@@ -219,8 +220,8 @@ void read_sensor_data(void){
     
 //    //FSR DATA - ADD IN PCB
 //    read_AddIn();
-//    
-//    //FSR DATA - SENSOR PCB
+////    
+////    //FSR DATA - SENSOR PCB
 //    read_Sensor();
 //    
 }

@@ -2,16 +2,16 @@
 //I2C DEFINITIONS
 
 #define BRG     0x45
-#define I2CCONL I2C3CONLbits
-#define I2CCONH I2C3CONHbits
-#define I2CADDR I2C3ADD
-#define I2CMSK  I2C3MSK
-#define I2CDATA I2C3TRN
-#define I2CSTAT I2C3STATbits
-#define I2CRCV  I2C3RCV
+#define I2CCONL I2C2CONLbits
+#define I2CCONH I2C2CONHbits
+#define I2CADDR I2C2ADD
+#define I2CMSK  I2C2MSK
+#define I2CDATA I2C2TRN
+#define I2CSTAT I2C2STATbits
+#define I2CRCV  I2C2RCV
 #define ADDRESS 0x18
-#define SI2C_E  IEC8bits.SI2C3IE
-#define SI2C_F  IFS8bits.SI2C3IF
+#define SI2C_E  IEC2bits.SI2C2IE
+#define SI2C_F  IFS2bits.SI2C2IF
 
 //I2C VARIABLES
 volatile float register_r;
@@ -21,6 +21,7 @@ void i2c_client_init(void);
 void i2c_send(int data);
 
 void i2c_client_init(void) {
+    
     //enable I2C
     I2CCONL.I2CEN = 1; //enable the third I2C module
     
@@ -42,7 +43,7 @@ void i2c_client_init(void) {
     I2CCONH.SCIE = 0; //enable interrupt on start condition
     
     I2CMSK  = 0;
-    I2CADDR = ADDRESS;  // set I2C address as 0x70
+    I2CADDR = ADDRESS;  // set I2C address as 0x18
 }
 
 void i2c_send(int data){

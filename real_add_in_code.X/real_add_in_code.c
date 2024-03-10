@@ -60,7 +60,7 @@
 void init_Timer1(void);
 void __attribute__((interrupt, no_auto_psv)) _ADCAN1Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _ADCAN0Interrupt(void);
-void __attribute__((interrupt, no_auto_psv)) _SI2C3Interrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _SI2C2Interrupt(void);
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void);
 
 #include <xc.h>
@@ -82,8 +82,8 @@ int main(void) {
     while (OSCCONbits.LOCK != 1);
     
     //INITIATE TIMER, ADC, AND I2C
-    init_ADC();
-    init_Timer1();
+    //init_ADC();
+    //init_Timer1();
     i2c_client_init();    
     
     while(1){
@@ -117,7 +117,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0; //Clear flag
 }
 
-void __attribute__((interrupt, no_auto_psv)) _SI2C3Interrupt(void) {
+void __attribute__((interrupt, no_auto_psv)) _SI2C2Interrupt(void) {
     int temp;
     int rbf;
     int rw;
