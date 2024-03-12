@@ -155,7 +155,7 @@ int main(){
     while (OSCCONbits.LOCK != 1);    
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
-    i2c_init();
+    //i2c_init();
     //config_imu();
     init_Timer1();
     init_ADC();

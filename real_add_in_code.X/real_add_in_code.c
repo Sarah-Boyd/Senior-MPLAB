@@ -82,8 +82,8 @@ int main(void) {
     while (OSCCONbits.LOCK != 1);
     
     //INITIATE TIMER, ADC, AND I2C
-    //init_ADC();
-    //init_Timer1();
+    init_ADC();
+    init_Timer1();
     i2c_client_init();    
     
     while(1){

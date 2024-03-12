@@ -2,8 +2,8 @@
 
 
 //ADC DEFINITIONS
-#define AN1 ANSELBbits.ANSELB2
-#define AN1_pin TRISBbits.TRISB2
+#define AN1 ANSELAbits.ANSELA0
+#define AN1_pin TRISAbits.TRISA0
 #define AN3 ANSELAbits.ANSELA3
 #define AN3_pin TRISAbits.TRISA3
 #define AN4 ANSELAbits.ANSELA4
