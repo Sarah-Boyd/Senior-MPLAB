@@ -109,10 +109,12 @@ volatile float voltage3;
 
 //FLAGS
 volatile int BLE_LED_ON = 0;
-volatile int READ_SENSORS = 0;
+volatile int READ_FSRS = 0;
 volatile int READ_BATTERY = 0;
-volatile int SENSOR_COUNT = 0;
+volatile int READ_IMU = 0;
+volatile int FSR_COUNT = 0;
 volatile int BATTERY_COUNT = 0;
+volatile int IMU_COUNT = 0;
 
 //SENSOR DATA
 volatile float acceleration[] = {0,0,0}; //acceleration data from the IMU
@@ -138,6 +140,7 @@ void init_Timer1(void);
 
 //MISC FUNCTIONS
 void read_AddIn(void);
+void read_Sensor(void);
 void read_sensor_data(void);
 
 //MAIN CODE--------------------------------------------------------------------
@@ -155,13 +158,13 @@ int main(){
     while (OSCCONbits.LOCK != 1);    
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
-    //i2c_init();
+    i2c_init();
     //config_imu();
     init_Timer1();
     init_ADC();
-    
-    init_pins();
-    init_extInt();
+//    
+//    init_pins();
+//    init_extInt();
     
     //INITIALIZE IMU AND FUEL GAUGE
 //    power_on_reset();
@@ -178,10 +181,16 @@ int main(){
             READ_BATTERY = 0;
             battery_soc = read_battery_soc();
         }
-//        if(READ_SENSORS == 1){
-//            READ_SENSORS = 0;
-//            read_sensor_data();
-//        }
+        if(READ_IMU == 1){
+            READ_IMU = 0;
+            read_IMU_data();
+        }
+        if(READ_FSRS == 1){
+            READ_FSRS = 0;
+            read_AddIn();
+            read_Sensor();
+        }
+        
     }
 }
 
@@ -190,40 +199,40 @@ int main(){
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0; //Clear flag
     
-    SENSOR_COUNT = SENSOR_COUNT + 1; //increment the read counter
+    FSR_COUNT = FSR_COUNT + 1; //increment the read counter
+    IMU_COUNT = IMU_COUNT + 1;
     BATTERY_COUNT = BATTERY_COUNT + 1;
     
         
     ADCON3Lbits.SWCTRG = 1;//Enable ADC Read
     ADCON5Hbits.SHRCIE = 1; //Enable shared ADC core read
     
-    if(SENSOR_COUNT == 4){
-        SENSOR_COUNT = 0;
-        READ_SENSORS = 1;
+    if(FSR_COUNT == 2){
+        FSR_COUNT = 0;
+        READ_FSRS = 1;
     }
     
-    if(BATTERY_COUNT == 20){
+    if(IMU_COUNT == 1){
+        IMU_COUNT = 0;
+        READ_IMU = 1;
+    }
+    
+    if(BATTERY_COUNT == 80){
         BATTERY_COUNT = 0;
         READ_BATTERY = 1;
     }
 }
 
-void read_sensor_data(void){
+void read_IMU_data(void){
     //IMU DATA
     read_imu();
-    acceleration[0] = imu_data[0];
-    acceleration[1] = imu_data[1];
-    acceleration[2] = imu_data[2];
-    angular_velocity[0] = imu_data[0];
-    angular_velocity[1] = imu_data[1];
-    angular_velocity[2] = imu_data[2];
+//    acceleration[0] = imu_data[0];
+//    acceleration[1] = imu_data[1];
+//    acceleration[2] = imu_data[2];
+//    angular_velocity[0] = imu_data[0];
+//    angular_velocity[1] = imu_data[1];
+//    angular_velocity[2] = imu_data[2];
     
-//    //FSR DATA - ADD IN PCB
-//    read_AddIn();
-////    
-////    //FSR DATA - SENSOR PCB
-//    read_Sensor();
-//    
 }
 
 void read_AddIn(void){
@@ -243,7 +252,7 @@ void read_AddIn(void){
     I2CCONL.ACKDT = 0;
     i2c_ack(); 
   
-    __delay_ms(10);
+    //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
@@ -275,21 +284,21 @@ void read_Sensor(void){
     I2CCONL.ACKDT = 0;
     i2c_ack(); 
   
-    __delay_ms(10);
+    //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
     fsr4 = DATA_R;
     i2c_ack();
 
-    __delay_ms(10);
+    //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
     fsr5 = DATA_R;
     i2c_ack();
                
-    __delay_ms(10);
+    //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
@@ -404,7 +413,7 @@ void init_Timer1(void) {
 
     IPC0bits.T1IP = 1;
     IEC0bits.T1IE = 1;
-    PR1 = 0xFFFFFFFFFFFF; //2048 clock cycle rollover
+    PR1 = 0xFFFFFFFF; //go back to 0x0900 for speedy I2C
 }
 
 void init_pins(){
