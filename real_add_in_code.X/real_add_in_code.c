@@ -100,13 +100,14 @@ int main(void) {
 void __attribute__((interrupt, no_auto_psv)) _ADCAN0Interrupt(void)
 {
     dataAN0 = ADCBUF0; // read conversion result
-    voltage0 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    
+    fsr_o7 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
     _ADCAN0IF = 0; // clear interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _ADCAN1Interrupt(void) {
     dataAN1 = ADCBUF1;
-    voltage1 = (float)dataAN1 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o8 = (float)dataAN1 * (float)(3.3/(float)4096); //Convert digital to voltage value
             
     //Clear interrupt flag
     _ADCAN1IF = 0;

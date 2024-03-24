@@ -97,22 +97,22 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x770           0xb28  (2856)
 .const                       0x970              0x20d2          0x313b  (12603)
-.text                       0x2a42               0x8b8           0xd14  (3348)
-.init.delay32               0x32fa                0x1c            0x2a  (42)
-.dinit                      0x3316                0x18            0x24  (36)
+.text                       0x2a42               0x8a8           0xcfc  (3324)
+.init.delay32               0x32ea                0x1c            0x2a  (42)
+.dinit                      0x3306                0x18            0x24  (36)
 
-                 Total "program" memory used (bytes):         0x49c5  (18885) 7%
+                 Total "program" memory used (bytes):         0x49ad  (18861) 7%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x6000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0            0x58  (88)
-.ndata                      0x1058                   0             0x6  (6)
-.bss                        0x105e                   0            0x50  (80)
+.nbss                       0x1000                   0            0x5c  (92)
+.ndata                      0x105c                   0             0x6  (6)
+.bss                        0x1062                   0            0x50  (80)
 
-                 Total "data" memory used (bytes):           0xae  (174) <1%
+                 Total "data" memory used (bytes):           0xb2  (178) <1%
 
 
 Dynamic Memory Usage
@@ -120,9 +120,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x10ae                              0x5f52  (24402)
+stack                       0x10b2                              0x5f4e  (24398)
 
-                 Maximum dynamic memory (bytes):         0x5f52  (24402)
+                 Maximum dynamic memory (bytes):         0x5f4e  (24398)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -156,8 +156,8 @@ External Symbols in Data Memory (by address):
                     0x1032                  _b_v
                     0x1036                  _dataAN0
                     0x1038                  _dataAN3
-                    0x103a                  _voltage0
-                    0x103e                  _voltage3
+                    0x103a                  _fsr_o5
+                    0x103e                  _fsr_o6
                     0x1042                  _BLE_LED_ON
                     0x1044                  _READ_FSRS
                     0x1046                  _READ_BATTERY
@@ -167,21 +167,22 @@ External Symbols in Data Memory (by address):
                     0x104e                  _IMU_COUNT
                     0x1050                  _battery_voltage
                     0x1054                  _battery_soc
-                    0x1058                  _ATFlag
-                    0x105a                  _dataFlag
-                    0x105c                  _conFlag
-                    0x105e                  _imu_data
-                    0x1076                  _acceleration
-                    0x1082                  _angular_velocity
-                    0x108e                  _FSRs
+                    0x1058                  _battery_soc_v
+                    0x105c                  _ATFlag
+                    0x105e                  _dataFlag
+                    0x1060                  _conFlag
+                    0x1062                  _imu_data
+                    0x107a                  _acceleration
+                    0x1086                  _angular_velocity
+                    0x1092                  _FSRs
 
 External Symbols in Data Memory (by name):
 
-                    0x1058                  _ATFlag
+                    0x105c                  _ATFlag
                     0x104c                  _BATTERY_COUNT
                     0x1042                  _BLE_LED_ON
                     0x104a                  _FSR_COUNT
-                    0x108e                  _FSRs
+                    0x1092                  _FSRs
                     0x104e                  _IMU_COUNT
                     0x1046                  _READ_BATTERY
                     0x1044                  _READ_FSRS
@@ -195,17 +196,20 @@ External Symbols in Data Memory (by name):
                     0x101a                  _acc_z
                     0x1016                  _acc_z1
                     0x1018                  _acc_z2
-                    0x1076                  _acceleration
-                    0x1082                  _angular_velocity
+                    0x107a                  _acceleration
+                    0x1086                  _angular_velocity
                     0x102e                  _b_p
                     0x1032                  _b_v
                     0x1054                  _battery_soc
+                    0x1058                  _battery_soc_v
                     0x1050                  _battery_voltage
                     0x1000                  _conCount
-                    0x105c                  _conFlag
+                    0x1060                  _conFlag
                     0x1036                  _dataAN0
                     0x1038                  _dataAN3
-                    0x105a                  _dataFlag
+                    0x105e                  _dataFlag
+                    0x103a                  _fsr_o5
+                    0x103e                  _fsr_o6
                     0x1020                  _gyr_x
                     0x101c                  _gyr_x1
                     0x101e                  _gyr_x2
@@ -215,13 +219,11 @@ External Symbols in Data Memory (by name):
                     0x102c                  _gyr_z
                     0x1028                  _gyr_z1
                     0x102a                  _gyr_z2
-                    0x105e                  _imu_data
+                    0x1062                  _imu_data
                     0x1004                  _received
                     0x1002                  _sending
                     0x1008                  _started
                     0x1006                  _stopped
-                    0x103a                  _voltage0
-                    0x103e                  _voltage3
 
 External Symbols in Program Memory (by address):
 
@@ -283,13 +285,13 @@ External Symbols in Program Memory (by address):
                   0x00304c                  _read_config
                   0x0030a4                  _read_battery_voltage
                   0x003112                  _main
-                  0x0031a0                  _read_IMU_data
-                  0x0031a8                  _read_AddIn
-                  0x003200                  _read_Sensor
-                  0x00329a                  _init_Timer1
-                  0x0032be                  _init_pins
-                  0x0032cc                  _init_extInt
-                  0x0032fa                  ___delay32
+                  0x0031a4                  _read_IMU_data
+                  0x0031ac                  _read_AddIn
+                  0x003204                  _read_Sensor
+                  0x00329e                  _init_Timer1
+                  0x0032c2                  _init_pins
+                  0x0032d0                  _init_extInt
+                  0x0032ea                  ___delay32
 
 External Symbols in Program Memory (by name):
 
@@ -309,7 +311,7 @@ External Symbols in Program Memory (by name):
                   0x0002fe                  __T1Interrupt
                   0x0004a8                  ___addsf3
                   0x0004a8                  ___addsf3x
-                  0x0032fa                  ___delay32
+                  0x0032ea                  ___delay32
                   0x00042c                  ___fixunssfsi
                   0x000876                  ___floatdisf
                   0x000462                  ___floatsisf
@@ -344,14 +346,14 @@ External Symbols in Program Memory (by name):
                   0x002d3e                  _imu_check_config
                   0x002f3c                  _imu_init
                   0x002c80                  _init_ADC
-                  0x00329a                  _init_Timer1
-                  0x0032cc                  _init_extInt
-                  0x0032be                  _init_pins
+                  0x00329e                  _init_Timer1
+                  0x0032d0                  _init_extInt
+                  0x0032c2                  _init_pins
                   0x003112                  _main
                   0x002f80                  _power_on_reset
-                  0x0031a8                  _read_AddIn
-                  0x0031a0                  _read_IMU_data
-                  0x003200                  _read_Sensor
+                  0x0031ac                  _read_AddIn
+                  0x0031a4                  _read_IMU_data
+                  0x003204                  _read_Sensor
                   0x002fd8                  _read_battery_soc
                   0x0030a4                  _read_battery_voltage
                   0x00304c                  _read_config
@@ -549,22 +551,22 @@ __FBTSEQ
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x4f09
+.debug_info       0x000000       0x4e34
  *(.debug_info)
- .debug_info      0x000000       0x476a build/default/production/real_main_code.o
- .debug_info      0x00476a         0x90 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
- .debug_info      0x0047fa         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
- .debug_info      0x004889         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_info      0x00491a         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
- .debug_info      0x0049a7         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
- .debug_info      0x004a44         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
- .debug_info      0x004ae1         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
- .debug_info      0x004b81         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
- .debug_info      0x004c23         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
- .debug_info      0x004cbf         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
- .debug_info      0x004d5e         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
- .debug_info      0x004ded         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_info      0x004e7e         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_info      0x000000       0x4695 build/default/production/real_main_code.o
+ .debug_info      0x004695         0x90 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+ .debug_info      0x004725         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_info      0x0047b4         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_info      0x004845         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_info      0x0048d2         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
+ .debug_info      0x00496f         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_info      0x004a0c         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_info      0x004aac         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_info      0x004b4e         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_info      0x004bea         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_info      0x004c89         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_info      0x004d18         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_info      0x004da9         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x352
@@ -584,30 +586,30 @@ __FBTSEQ
  .debug_abbrev    0x00032a         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
  .debug_abbrev    0x00033e         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
 
-.debug_line       0x000000        0x99f
+.debug_line       0x000000        0x99c
  *(.debug_line)
- .debug_line      0x000000        0x3e3 build/default/production/real_main_code.o
- .debug_line      0x0003e3         0x53 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
- .debug_line      0x000436         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
- .debug_line      0x000470         0x3b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_line      0x0004ab         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
- .debug_line      0x0004f5        0x136 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
- .debug_line      0x00062b         0xcc c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
- .debug_line      0x0006f7         0x72 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
- .debug_line      0x000769         0x7a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
- .debug_line      0x0007e3         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
- .debug_line      0x000841         0x51 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
- .debug_line      0x000892         0x47 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
- .debug_line      0x0008d9         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_line      0x000945         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_line      0x000000        0x3e0 build/default/production/real_main_code.o
+ .debug_line      0x0003e0         0x53 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+ .debug_line      0x000433         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_line      0x00046d         0x3b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_line      0x0004a8         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_line      0x0004f2        0x136 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
+ .debug_line      0x000628         0xcc c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_line      0x0006f4         0x72 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_line      0x000766         0x7a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_line      0x0007e0         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_line      0x00083e         0x51 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_line      0x00088f         0x47 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_line      0x0008d6         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_line      0x000942         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
 
 .debug_frame      0x000000        0x4b6
  *(.debug_frame)
  .debug_frame     0x000000        0x4b6 build/default/production/real_main_code.o
 
-.debug_str        0x000000        0x288
+.debug_str        0x000000        0x262
  *(.debug_str)
- .debug_str       0x000000        0x288 build/default/production/real_main_code.o
+ .debug_str       0x000000        0x262 build/default/production/real_main_code.o
 
 .debug_loc
  *(.debug_loc)
@@ -616,10 +618,10 @@ __FBTSEQ
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x4d6
+                  0x000000        0x4e4
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x4d6 build/default/production/real_main_code.o
+                  0x000000        0x4e4 build/default/production/real_main_code.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -3984,39 +3986,39 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x0001b8        0x60b
+                  0x0001b8        0x5cd
  .debug_pubtypes
-                  0x0001b8        0x60b build/default/production/real_main_code.o
+                  0x0001b8        0x5cd build/default/production/real_main_code.o
 
 __c30_signature
-                  0x0007c3         0x48
+                  0x000785         0x48
  __c30_signature
-                  0x0007c3          0x6 build/default/production/real_main_code.o
+                  0x000785          0x6 build/default/production/real_main_code.o
  __c30_signature
-                  0x0007c9          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_extendedch.o)
+                  0x00078b          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_extendedch.o)
  __c30_signature
-                  0x0007cf          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_extendedch.o)
+                  0x000791          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_extendedch.o)
  __c30_signature
-                  0x0007d5          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
+                  0x000797          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
  __c30_signature
-                  0x0007db          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+                  0x00079d          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
  __c30_signature
-                  0x0007e1          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+                  0x0007a3          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
  __c30_signature
-                  0x0007e7          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+                  0x0007a9          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
  __c30_signature
-                  0x0007ed          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+                  0x0007af          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
  __c30_signature
-                  0x0007f3          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+                  0x0007b5          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
  __c30_signature
-                  0x0007f9          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+                  0x0007bb          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
  __c30_signature
-                  0x0007ff          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+                  0x0007c1          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
  __c30_signature
-                  0x000805          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(strlen.CH_o)
+                  0x0007c7          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(strlen.CH_o)
 
-.nbss               0x1000         0x58
- .nbss              0x1000         0x58 build/default/production/real_main_code.o
+.nbss               0x1000         0x5c
+ .nbss              0x1000         0x5c build/default/production/real_main_code.o
                     0x1000                  _conCount
                     0x1002                  _sending
                     0x1004                  _received
@@ -4044,8 +4046,8 @@ __c30_signature
                     0x1032                  _b_v
                     0x1036                  _dataAN0
                     0x1038                  _dataAN3
-                    0x103a                  _voltage0
-                    0x103e                  _voltage3
+                    0x103a                  _fsr_o5
+                    0x103e                  _fsr_o6
                     0x1042                  _BLE_LED_ON
                     0x1044                  _READ_FSRS
                     0x1046                  _READ_BATTERY
@@ -4055,19 +4057,20 @@ __c30_signature
                     0x104e                  _IMU_COUNT
                     0x1050                  _battery_voltage
                     0x1054                  _battery_soc
+                    0x1058                  _battery_soc_v
 
-.ndata              0x1058          0x6
- .ndata             0x1058          0x6 build/default/production/real_main_code.o
-                    0x1058                  _ATFlag
-                    0x105a                  _dataFlag
-                    0x105c                  _conFlag
+.ndata              0x105c          0x6
+ .ndata             0x105c          0x6 build/default/production/real_main_code.o
+                    0x105c                  _ATFlag
+                    0x105e                  _dataFlag
+                    0x1060                  _conFlag
 
-.bss                0x105e         0x50
- .bss               0x105e         0x50 build/default/production/real_main_code.o
-                    0x105e                  _imu_data
-                    0x1076                  _acceleration
-                    0x1082                  _angular_velocity
-                    0x108e                  _FSRs
+.bss                0x1062         0x50
+ .bss               0x1062         0x50 build/default/production/real_main_code.o
+                    0x1062                  _imu_data
+                    0x107a                  _acceleration
+                    0x1086                  _angular_velocity
+                    0x1092                  _FSRs
 
 .config_CTXT4     0x02bf44          0x2
  .config_CTXT4    0x02bf44          0x2 build/default/production/real_main_code.o
@@ -4131,8 +4134,8 @@ __c30_signature
  .const             0x8970       0x20d2 build/default/production/real_main_code.o
                     0x8a42                  _bmi270_config_file
 
-.text             0x002a42        0x8b8
- .text            0x002a42        0x8b8 build/default/production/real_main_code.o
+.text             0x002a42        0x8a8
+ .text            0x002a42        0x8a8 build/default/production/real_main_code.o
                   0x002a42                  _SendCmd
                   0x002a9e                  _SendData
                   0x002b34                  _ATResponse
@@ -4161,16 +4164,16 @@ __c30_signature
                   0x00304c                  _read_config
                   0x0030a4                  _read_battery_voltage
                   0x003112                  _main
-                  0x0031a0                  _read_IMU_data
-                  0x0031a8                  _read_AddIn
-                  0x003200                  _read_Sensor
-                  0x00329a                  _init_Timer1
-                  0x0032be                  _init_pins
-                  0x0032cc                  _init_extInt
+                  0x0031a4                  _read_IMU_data
+                  0x0031ac                  _read_AddIn
+                  0x003204                  _read_Sensor
+                  0x00329e                  _init_Timer1
+                  0x0032c2                  _init_pins
+                  0x0032d0                  _init_extInt
 
-.init.delay32     0x0032fa         0x1c
- .init.delay32    0x0032fa         0x1c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
-                  0x0032fa                  ___delay32
+.init.delay32     0x0032ea         0x1c
+ .init.delay32    0x0032ea         0x1c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
+                  0x0032ea                  ___delay32
 
-.dinit            0x003316         0x18
- .dinit           0x003316         0x18 data_init
+.dinit            0x003306         0x18
+ .dinit           0x003306         0x18 data_init

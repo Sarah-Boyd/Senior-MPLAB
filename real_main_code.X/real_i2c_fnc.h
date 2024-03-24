@@ -68,7 +68,7 @@ void i2c_send(int data) {
     sending = 1; //sending data so raise the flag
     DATA_W = data; //add data to register
 
-    while(sending == 1); //wait until data transfer is complete
+   while(sending == 1); //wait until data transfer is complete
 }
 
 void i2c_ack(void){

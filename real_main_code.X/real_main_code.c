@@ -88,8 +88,8 @@
 #define BLE_INT_PIN 43
 #define BLE_LED_PIN LATBbits.LATB11
 #define BLE_LED_PIN_SET TRISBbits.TRISB11
-#define PWR_PIN_SET TRISAbits.TRISA1
-#define PWR_PIN     LATAbits.LATA2
+#define PWR_PIN_SET TRISAbits.TRISA4
+#define PWR_PIN     LATAbits.LATA4
 
 
 //MISC DEFINITIONS
@@ -104,8 +104,8 @@
 //program variables
 volatile int dataAN0;
 volatile int dataAN3;
-volatile float voltage0;
-volatile float voltage3;
+volatile float fsr_o5;
+volatile float fsr_o6;
 
 //FLAGS
 volatile int BLE_LED_ON = 0;
@@ -122,6 +122,7 @@ volatile float angular_velocity[] = {0,0,0}; //gyroscope data from the IMU
 volatile float FSRs[] = {0,0,0,0,0,0,0,0}; //FSR data
 volatile float battery_voltage;
 volatile float battery_soc;
+volatile float battery_soc_v;
 
 //INTERRUPT SERVICE ROUTINES
 void __attribute__((interrupt, no_auto_psv)) _ADCAN1Interrupt(void);
@@ -159,7 +160,7 @@ int main(){
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
     i2c_init();
-    //config_imu();
+    config_imu();
     init_Timer1();
     init_ADC();
 //    
@@ -167,10 +168,10 @@ int main(){
 //    init_extInt();
     
     //INITIALIZE IMU AND FUEL GAUGE
-//    power_on_reset();
-//    config_fuelgauge();
+    //power_on_reset();
+    config_fuelgauge();
     
-    //reset_fuelgauge();
+   // reset_fuelgauge();
     
     //Setup();
     //BLESetup();
@@ -364,13 +365,13 @@ void __attribute__((interrupt, no_auto_psv)) _MI2C3Interrupt(void) {
 void __attribute__((interrupt, no_auto_psv)) _ADCAN0Interrupt(void)
 {
     dataAN0 = ADCBUF0; // read conversion result
-    voltage0 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o6 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
     _ADCAN0IF = 0; // clear interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void) {
     dataAN3 = ADCBUF3;
-    voltage3 = (float)dataAN3 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o5 = (float)dataAN3 * (float)(3.3/(float)4096); //Convert digital to voltage value
             
     //Clear interrupt flag
     IFS5bits.ADCAN3IF = 0;
@@ -413,7 +414,7 @@ void init_Timer1(void) {
 
     IPC0bits.T1IP = 1;
     IEC0bits.T1IE = 1;
-    PR1 = 0xFFFFFFFF; //go back to 0x0900 for speedy I2C
+    PR1 = 0x0900; //go back to 0x0900 for speedy I2C
 }
 
 void init_pins(){
@@ -426,16 +427,10 @@ void init_pins(){
 
 void init_extInt(){
     //SET UP EXTERNAL INTTERUPT 2
-    INTCON2bits.INT1EP = 0; //interrupt on falling edge
+    INTCON2bits.INT1EP = 1; //interrupt on falling edge
     RPINR1bits.INT2R = BATTERY_INT_PIN; //set pin RP47 (INT_2)
     IFS1bits.INT2IF = 0;    //Reset INT2 interrupt flag 
     IPC5bits.INT2IP = 1; //set priority 2
     IEC1bits.INT2IE = 1;  //enable INT2
     
-    //SET UP EXTERNAL INTERRUOT 1
-    INTCON2bits.INT1EP = 1; //interrupt on rising edge
-    RPINR0bits.INT1R = BLE_INT_PIN; //set pin RP47 (INT_2)
-    IFS0bits.INT1IF = 0;    //Reset INT1 interrupt flag 
-    IPC3bits.INT1IP = 1; //set priority 2
-    IEC0bits.INT1IE = 1;  //enable INT1
 }

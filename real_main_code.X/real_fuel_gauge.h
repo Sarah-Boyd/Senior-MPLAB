@@ -5,6 +5,7 @@
 volatile float b_p;
 volatile float b_v;
 
+
 //I2C ADDRESSES
 #define FUEL_W   0x6C
 #define FUEL_R   0x6D
@@ -25,7 +26,7 @@ void config_fuelgauge(void){
 	i2c_send(0x6C);    //write MAX
 	i2c_send(0x0C);    //mode register
 	i2c_send(0x97); 
-	i2c_send(0x00);    //set alert to 32%
+	i2c_send(0x1E);    //set alert to 1%
 	//i2c_stop();	
     
     __delay_ms(1);
@@ -68,6 +69,7 @@ float read_battery_soc(void){
     
 	
 	xo = (0.003906)*xl + xm;
+    //xo = xl|(xm << 8);
 	return xo;
 }
 
@@ -100,7 +102,7 @@ long read_config(void){
 }
 
 float read_battery_voltage(void){		
-	uint8_t xm, xl, temp, xo;
+	uint8_t xm, xl,xo,temp;
     
     i2c_start();
     i2c_send(FUEL_W);
@@ -120,8 +122,8 @@ float read_battery_voltage(void){
     i2c_ack();
     i2c_stop();
 	
-	temp = ((xl|(xm << 8)) >> 4);
-	xo = 1.25* temp;
+	temp = ((xm|(xl << 8)) >> 4);
+	xo = 1.25 * temp;
     
     __delay_ms(1);
 	

@@ -58,10 +58,10 @@ volatile int dataAN0;
 volatile int dataAN3;
 volatile int dataAN4;
 volatile int dataAN5;
-volatile float voltage0;
-volatile float voltage3;
-volatile float voltage4;
-volatile float voltage5;
+volatile float fsr_o1;
+volatile float fsr_o2;
+volatile float fsr_o3;
+volatile float fsr_o4;
 
 
 //ADD IN FUNCTIONS AND ISRs
@@ -110,14 +110,14 @@ int main(void) {
 void __attribute__((interrupt, no_auto_psv)) _ADCAN0Interrupt(void)
 {
     dataAN0 = ADCBUF0; // read conversion result
-    voltage0 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o2 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
     _ADCAN0IF = 0; // clear interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void)
 {
     dataAN1 = ADCBUF3; // read conversion result
-    voltage1 = (float)dataAN1 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o4 = (float)dataAN1 * (float)(3.3/(float)4096); //Convert digital to voltage value
     
     IFS5bits.ADCAN3IF = 0; // clear interrupt flag
 }
@@ -125,14 +125,14 @@ void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void)
 void __attribute__((interrupt, no_auto_psv)) _ADCAN4Interrupt(void)
 {
     dataAN2 = ADCBUF4; // read conversion result
-    voltage2 = (float)dataAN2 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o3 = (float)dataAN2 * (float)(3.3/(float)4096); //Convert digital to voltage value
     IFS5bits.ADCAN4IF = 0; // clear interrupt flag
 }
 
 void __attribute__((interrupt, no_auto_psv)) _ADCAN5Interrupt(void)
 {
     dataAN3 = ADCBUF5; // read conversion result
-    voltage3 = (float)dataAN3 * (float)(3.3/(float)4096); //Convert digital to voltage value
+    fsr_o1 = (float)dataAN3 * (float)(3.3/(float)4096); //Convert digital to voltage value
     IFS6bits.ADCAN5IF = 0; // clear interrupt flag
 }
 
@@ -195,5 +195,5 @@ void init_Timer1(void) {
 
     IPC0bits.T1IP = 1;
     IEC0bits.T1IE = 1;
-    PR1 = 0xFFFFFFFF; //2048 clock cycle rollover
+    PR1 = 0x1000; //2048 clock cycle rollover
 }

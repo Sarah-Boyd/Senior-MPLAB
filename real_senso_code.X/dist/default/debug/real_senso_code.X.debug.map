@@ -4,13 +4,13 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.00 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.01 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.02 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.03 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.04 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.05 \
-  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00007fd4.06 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.00 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.01 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.02 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.03 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.04 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.05 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004a00.06 \
   -p33CK256MP502 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.15/packs/Microchip/dsPIC33CK-MP_DFP/1.12.354/xc16 \
   -o \
@@ -120,9 +120,9 @@ reserve_data_0x1020         0x1020                 0x2             0x2  (2)
 reserve_data_0x1022         0x1022                 0x2             0x2  (2)
 reserve_data_0x1024         0x1024                 0x4             0x4  (4)
 reserve_data_0x1028         0x1028                0x28            0x28  (40)
-.nbss                       0x1050                   0            0x28  (40)
+.nbss                       0x1050                   0            0x30  (48)
 
-                 Total "data" memory used (bytes):           0x78  (120) <1%
+                 Total "data" memory used (bytes):           0x80  (128) <1%
 
 
 Dynamic Memory Usage
@@ -130,9 +130,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1078                              0x5f88  (24456)
+stack                       0x1080                              0x5f80  (24448)
 
-                 Maximum dynamic memory (bytes):         0x5f88  (24456)
+                 Maximum dynamic memory (bytes):         0x5f80  (24448)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -143,15 +143,17 @@ External Symbols in Data Memory (by address):
                     0x1052                  _dataAN3
                     0x1054                  _dataAN4
                     0x1056                  _dataAN5
-                    0x1058                  _voltage0
-                    0x105c                  _voltage3
-                    0x1060                  _voltage4
-                    0x1064                  _voltage5
+                    0x1058                  _fsr_o1
+                    0x105c                  _fsr_o2
+                    0x1060                  _fsr_o3
+                    0x1064                  _fsr_o4
                     0x1068                  _dataAN1
                     0x106a                  _dataAN2
-                    0x106c                  _voltage1
-                    0x1070                  _voltage2
-                    0x1074                  _register_r
+                    0x106c                  _voltage0
+                    0x1070                  _voltage1
+                    0x1074                  _voltage2
+                    0x1078                  _voltage3
+                    0x107c                  _register_r
 
 External Symbols in Data Memory (by name):
 
@@ -161,13 +163,15 @@ External Symbols in Data Memory (by name):
                     0x1052                  _dataAN3
                     0x1054                  _dataAN4
                     0x1056                  _dataAN5
-                    0x1074                  _register_r
-                    0x1058                  _voltage0
-                    0x106c                  _voltage1
-                    0x1070                  _voltage2
-                    0x105c                  _voltage3
-                    0x1060                  _voltage4
-                    0x1064                  _voltage5
+                    0x1058                  _fsr_o1
+                    0x105c                  _fsr_o2
+                    0x1060                  _fsr_o3
+                    0x1064                  _fsr_o4
+                    0x107c                  _register_r
+                    0x106c                  _voltage0
+                    0x1070                  _voltage1
+                    0x1074                  _voltage2
+                    0x1078                  _voltage3
 
 External Symbols in Program Memory (by address):
 
@@ -471,23 +475,23 @@ __FBTSEQ
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3ab2
+.debug_info       0x000000       0x3af8
  *(.debug_info)
- .debug_info      0x000000       0x3297 build/default/debug/real_sensor_code.o
- .debug_info      0x003297         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
- .debug_info      0x003324         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
- .debug_info      0x0033b3         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_info      0x003444         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
- .debug_info      0x0034e1         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
- .debug_info      0x003581         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
- .debug_info      0x003623         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
- .debug_info      0x0036bf         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
- .debug_info      0x00375e         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
- .debug_info      0x0037ec         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
- .debug_info      0x00387b         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_info      0x00390c         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
- .debug_info      0x003997         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
- .debug_info      0x003a25         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_info      0x000000       0x32dd build/default/debug/real_sensor_code.o
+ .debug_info      0x0032dd         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+ .debug_info      0x00336a         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_info      0x0033f9         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_info      0x00348a         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_info      0x003527         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_info      0x0035c7         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_info      0x003669         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_info      0x003705         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_info      0x0037a4         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+ .debug_info      0x003832         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_info      0x0038c1         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_info      0x003952         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_info      0x0039dd         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+ .debug_info      0x003a6b         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x26d
@@ -530,9 +534,9 @@ __FBTSEQ
  *(.debug_frame)
  .debug_frame     0x000000        0x21a build/default/debug/real_sensor_code.o
 
-.debug_str        0x000000        0x1a7
+.debug_str        0x000000        0x183
  *(.debug_str)
- .debug_str       0x000000        0x1a7 build/default/debug/real_sensor_code.o
+ .debug_str       0x000000        0x183 build/default/debug/real_sensor_code.o
 
 .debug_loc
  *(.debug_loc)
@@ -541,10 +545,10 @@ __FBTSEQ
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x193
+                  0x000000        0x1a5
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x193 build/default/debug/real_sensor_code.o
+                  0x000000        0x1a5 build/default/debug/real_sensor_code.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -3941,21 +3945,23 @@ __c30_signature
  __c30_signature
                   0x00069f          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
 
-.nbss               0x1050         0x28
- .nbss              0x1050         0x28 build/default/debug/real_sensor_code.o
+.nbss               0x1050         0x30
+ .nbss              0x1050         0x30 build/default/debug/real_sensor_code.o
                     0x1050                  _dataAN0
                     0x1052                  _dataAN3
                     0x1054                  _dataAN4
                     0x1056                  _dataAN5
-                    0x1058                  _voltage0
-                    0x105c                  _voltage3
-                    0x1060                  _voltage4
-                    0x1064                  _voltage5
+                    0x1058                  _fsr_o1
+                    0x105c                  _fsr_o2
+                    0x1060                  _fsr_o3
+                    0x1064                  _fsr_o4
                     0x1068                  _dataAN1
                     0x106a                  _dataAN2
-                    0x106c                  _voltage1
-                    0x1070                  _voltage2
-                    0x1074                  _register_r
+                    0x106c                  _voltage0
+                    0x1070                  _voltage1
+                    0x1074                  _voltage2
+                    0x1078                  _voltage3
+                    0x107c                  _register_r
 
 .config_CTXT4     0x02bf44          0x2
  .config_CTXT4    0x02bf44          0x2 build/default/debug/real_sensor_code.o

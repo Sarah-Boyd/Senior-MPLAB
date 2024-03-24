@@ -10,8 +10,8 @@
 //ADC VARIABLES
 volatile int dataAN0;
 volatile int dataAN1;
-volatile float voltage0;
-volatile float voltage1;
+volatile float fsr_o7;
+volatile float fsr_o8;
 
 void init_ADC(void);
 void EnableADC(void);

@@ -104,9 +104,9 @@ section                    address   length (PC units)   length (bytes) (dec)
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0            0x28  (40)
+.nbss                       0x1000                   0            0x30  (48)
 
-                 Total "data" memory used (bytes):           0x28  (40) <1%
+                 Total "data" memory used (bytes):           0x30  (48) <1%
 
 
 Dynamic Memory Usage
@@ -114,9 +114,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1028                              0x5fd8  (24536)
+stack                       0x1030                              0x5fd0  (24528)
 
-                 Maximum dynamic memory (bytes):         0x5fd8  (24536)
+                 Maximum dynamic memory (bytes):         0x5fd0  (24528)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -127,15 +127,17 @@ External Symbols in Data Memory (by address):
                     0x1002                  _dataAN3
                     0x1004                  _dataAN4
                     0x1006                  _dataAN5
-                    0x1008                  _voltage0
-                    0x100c                  _voltage3
-                    0x1010                  _voltage4
-                    0x1014                  _voltage5
+                    0x1008                  _fsr_o1
+                    0x100c                  _fsr_o2
+                    0x1010                  _fsr_o3
+                    0x1014                  _fsr_o4
                     0x1018                  _dataAN1
                     0x101a                  _dataAN2
-                    0x101c                  _voltage1
-                    0x1020                  _voltage2
-                    0x1024                  _register_r
+                    0x101c                  _voltage0
+                    0x1020                  _voltage1
+                    0x1024                  _voltage2
+                    0x1028                  _voltage3
+                    0x102c                  _register_r
 
 External Symbols in Data Memory (by name):
 
@@ -145,13 +147,15 @@ External Symbols in Data Memory (by name):
                     0x1002                  _dataAN3
                     0x1004                  _dataAN4
                     0x1006                  _dataAN5
-                    0x1024                  _register_r
-                    0x1008                  _voltage0
-                    0x101c                  _voltage1
-                    0x1020                  _voltage2
-                    0x100c                  _voltage3
-                    0x1010                  _voltage4
-                    0x1014                  _voltage5
+                    0x1008                  _fsr_o1
+                    0x100c                  _fsr_o2
+                    0x1010                  _fsr_o3
+                    0x1014                  _fsr_o4
+                    0x102c                  _register_r
+                    0x101c                  _voltage0
+                    0x1020                  _voltage1
+                    0x1024                  _voltage2
+                    0x1028                  _voltage3
 
 External Symbols in Program Memory (by address):
 
@@ -418,23 +422,23 @@ __FBTSEQ
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3ab2
+.debug_info       0x000000       0x3af8
  *(.debug_info)
- .debug_info      0x000000       0x3297 build/default/production/real_sensor_code.o
- .debug_info      0x003297         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
- .debug_info      0x003324         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
- .debug_info      0x0033b3         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
- .debug_info      0x003444         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
- .debug_info      0x0034e1         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
- .debug_info      0x003581         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
- .debug_info      0x003623         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
- .debug_info      0x0036bf         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
- .debug_info      0x00375e         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
- .debug_info      0x0037ec         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
- .debug_info      0x00387b         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
- .debug_info      0x00390c         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
- .debug_info      0x003997         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
- .debug_info      0x003a25         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_info      0x000000       0x32dd build/default/production/real_sensor_code.o
+ .debug_info      0x0032dd         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(feqltle.CH_o)
+ .debug_info      0x00336a         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_info      0x0033f9         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_info      0x00348a         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_info      0x003527         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_info      0x0035c7         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_info      0x003669         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_info      0x003705         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_info      0x0037a4         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fcompare.CH_o)
+ .debug_info      0x003832         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_info      0x0038c1         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_info      0x003952         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ .debug_info      0x0039dd         0x8e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack2.CH_o)
+ .debug_info      0x003a6b         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x26d
@@ -477,9 +481,9 @@ __FBTSEQ
  *(.debug_frame)
  .debug_frame     0x000000        0x21a build/default/production/real_sensor_code.o
 
-.debug_str        0x000000        0x1a7
+.debug_str        0x000000        0x183
  *(.debug_str)
- .debug_str       0x000000        0x1a7 build/default/production/real_sensor_code.o
+ .debug_str       0x000000        0x183 build/default/production/real_sensor_code.o
 
 .debug_loc
  *(.debug_loc)
@@ -488,10 +492,10 @@ __FBTSEQ
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x193
+                  0x000000        0x1a5
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x193 build/default/production/real_sensor_code.o
+                  0x000000        0x1a5 build/default/production/real_sensor_code.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -3888,21 +3892,23 @@ __c30_signature
  __c30_signature
                   0x00069f          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
 
-.nbss               0x1000         0x28
- .nbss              0x1000         0x28 build/default/production/real_sensor_code.o
+.nbss               0x1000         0x30
+ .nbss              0x1000         0x30 build/default/production/real_sensor_code.o
                     0x1000                  _dataAN0
                     0x1002                  _dataAN3
                     0x1004                  _dataAN4
                     0x1006                  _dataAN5
-                    0x1008                  _voltage0
-                    0x100c                  _voltage3
-                    0x1010                  _voltage4
-                    0x1014                  _voltage5
+                    0x1008                  _fsr_o1
+                    0x100c                  _fsr_o2
+                    0x1010                  _fsr_o3
+                    0x1014                  _fsr_o4
                     0x1018                  _dataAN1
                     0x101a                  _dataAN2
-                    0x101c                  _voltage1
-                    0x1020                  _voltage2
-                    0x1024                  _register_r
+                    0x101c                  _voltage0
+                    0x1020                  _voltage1
+                    0x1024                  _voltage2
+                    0x1028                  _voltage3
+                    0x102c                  _register_r
 
 .config_CTXT4     0x02bf44          0x2
  .config_CTXT4    0x02bf44          0x2 build/default/production/real_sensor_code.o
