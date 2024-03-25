@@ -44,6 +44,12 @@ else
 COMPARISON_BUILD=
 endif
 
+ifdef SUB_IMAGE_ADDRESS
+SUB_IMAGE_ADDRESS_COMMAND=--image-address $(SUB_IMAGE_ADDRESS)
+else
+SUB_IMAGE_ADDRESS_COMMAND=
+endif
+
 # Object Directory
 OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 
@@ -89,14 +95,14 @@ MP_LINKER_FILE_OPTION=,--script=p33CK256MP502.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/real_sensor_code.o: real_sensor_code.c  .generated_files/flags/default/99fd8c4339fa946d494a4eecd9651f12a6ea8325 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/real_sensor_code.o: real_sensor_code.c  .generated_files/flags/default/e3fdeb2c3d577ef3a96162fe41ae07a8375f9e86 .generated_files/flags/default/e7b74f0c315654c3d0ba0328fff9568ab63219d9
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/real_sensor_code.o.d 
 	@${RM} ${OBJECTDIR}/real_sensor_code.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  real_sensor_code.c  -o ${OBJECTDIR}/real_sensor_code.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/real_sensor_code.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/real_sensor_code.o: real_sensor_code.c  .generated_files/flags/default/7d3a048019ac05644125b0c501a8fd042803d5a0 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/real_sensor_code.o: real_sensor_code.c  .generated_files/flags/default/d435ab3beb48c93ff8a4fa9a0fa67bd364c7bfd8 .generated_files/flags/default/e7b74f0c315654c3d0ba0328fff9568ab63219d9
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/real_sensor_code.o.d 
 	@${RM} ${OBJECTDIR}/real_sensor_code.o 
@@ -147,7 +153,7 @@ endif
 # Enable dependency checking
 .dep.inc: .depcheck-impl
 
-DEPFILES=$(wildcard ${POSSIBLE_DEPFILES})
+DEPFILES=$(shell mplabwildcard ${POSSIBLE_DEPFILES})
 ifneq (${DEPFILES},)
 include ${DEPFILES}
 endif

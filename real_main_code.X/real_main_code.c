@@ -59,6 +59,8 @@
 #include "real_adc_fnc.h"
 #include "real_imu_fnc.h"
 #include "real_fuel_gauge.h"
+#include <stdio.h>
+#include <stdlib.h>
  
  
 //INERTIAL MEASUREMENT UNIT REGISTER MAP
@@ -115,6 +117,7 @@ volatile int READ_IMU = 0;
 volatile int FSR_COUNT = 0;
 volatile int BATTERY_COUNT = 0;
 volatile int IMU_COUNT = 0;
+volatile int SEND_DATA = 0;
 
 //SENSOR DATA
 volatile float acceleration[] = {0,0,0}; //acceleration data from the IMU
@@ -138,11 +141,14 @@ void init_pins(void);
 void init_extInt1(void);
 void init_extInt2(void);
 void init_Timer1(void);
+void uart_Setup(void);
 
 //MISC FUNCTIONS
 void read_AddIn(void);
 void read_Sensor(void);
 void read_sensor_data(void);
+void read_IMU_data(void);
+void send_Data(void);
 
 //MAIN CODE--------------------------------------------------------------------
 
@@ -163,6 +169,7 @@ int main(){
     config_imu();
     init_Timer1();
     init_ADC();
+    uart_Setup();
 //    
 //    init_pins();
 //    init_extInt();
@@ -190,6 +197,12 @@ int main(){
             READ_FSRS = 0;
             read_AddIn();
             read_Sensor();
+            SEND_DATA = 1;
+        }
+        
+        if(SEND_DATA == 1){
+            send_Data();
+            SEND_DATA = 0;
         }
         
     }
@@ -238,7 +251,7 @@ void read_IMU_data(void){
 
 void read_AddIn(void){
     float fsr7;
-    float fsr8;
+    //float fsr8;
     
     
     i2c_start();
@@ -263,7 +276,7 @@ void read_AddIn(void){
     i2c_stop();
                
     FSRs[6] = fsr7;
-    FSRs[7] = fsr8;
+    //FSRs[7] = fsr8; // I don't think we actually read fsr8
 }
 
 void read_Sensor(void){
@@ -313,6 +326,63 @@ void read_Sensor(void){
     FSRs[3] = fsr4;
     FSRs[4] = fsr5;
     FSRs[5] = fsr6;
+}
+
+void send_Data(void){
+
+    char data_string[10];
+    
+    // SEND FSR DATA FIRST
+    for (int i=0; i<8; i++){
+        sprintf(data_string, "%.7f", FSRs[i]);
+        for (int j=0; j<strlen(data_string); j++){
+            U1TXREG = data_string[j]; // Send character
+            while(U1STAHbits.UTXBE == 0){
+
+            }
+        }
+    }
+    
+    // IMU DATA NEXT
+    // acceleration data first
+    for (int i=0; i<3; i++){
+        sprintf(data_string, "%.7f", acceleration[i]);
+        for (int j=0; j<strlen(data_string); j++){
+            U1TXREG = data_string[j]; // Send character
+            while(U1STAHbits.UTXBE == 0){
+
+            }
+        }
+    }
+    
+    // now gyroscope data
+    for (int i=0; i<3; i++){
+        sprintf(data_string, "%.7f", angular_velocity[i]);
+        for (int j=0; j<strlen(data_string); j++){
+            U1TXREG = data_string[j]; // Send character
+            while(U1STAHbits.UTXBE == 0){
+
+            }
+        }
+    }
+    
+    // SEND BATTERY VOLTAGE NOW
+    sprintf(data_string, "%.7f", battery_soc);
+        for (int j=0; j<strlen(data_string); j++){
+            U1TXREG = data_string[j]; // Send character
+            while(U1STAHbits.UTXBE == 0){
+
+            }
+        }
+    
+    U1TXREG = 0x0D; // Send carriage return command
+    while(U1STAHbits.UTXBE == 0){
+
+    }
+
+    U1TXREG = 0x0A; // Send line feed command
+    while(U1STAHbits.UTXBE == 0){  
+    }
 }
 
 //INTERRUPT SERVICE ROUTINES
@@ -432,5 +502,48 @@ void init_extInt(){
     IFS1bits.INT2IF = 0;    //Reset INT2 interrupt flag 
     IPC5bits.INT2IP = 1; //set priority 2
     IEC1bits.INT2IE = 1;  //enable INT2
+    
+}
+
+void uart_Setup(void){
+    
+    ANSELBbits.ANSELB0 = 0;
+    ANSELBbits.ANSELB1 = 0;
+    
+    TRISBbits.TRISB0 = 0;               // set RB0 to be an output
+    TRISBbits.TRISB13 = 0;              // set RB13 to be an output
+    
+    LATBbits.LATB13 = 0;                // disable ESP
+//    __delay_ms(2000);
+//    LATBbits.LATB0 = 1; // set GPIO0 on ESP high for normal boot mode
+    
+    // Map the WIFI/BT pins to UART1
+    // Note that the schematic is backwards for the dsPIC: 
+    // The dsPIC TX pin is labeled as the RX_BLE pin (this is from the perspective of the ESP32)
+    U1MODEbits.UTXEN = 0;               // Disable transmit bit
+    U1MODEbits.UARTEN = 0;              // Disable UART
+    __builtin_write_RPCON(0x0000);      // Unlock Registers
+    RPINR18bits.U1RXR = 37;             // Map UART1 RX pin
+    RPOR2bits.RP36R = 1;                // Map UART1 TX pin
+//    RPINR18bits.U1RXR = 36;             // Map UART1 RX pin
+//    RPOR2bits.RP37R = 1;                // Map UART1 TX pin
+    __builtin_write_RPCON(0x0800);      // Lock Registers
+    
+    // Set up UART & baud rate
+    U1MODEHbits.BCLKSEL = 0;            // FOSC/2 (Fp)
+    U1MODEHbits.BCLKMOD = 0;            // use legacy divide-by-x counter for baud rate generation
+    U1MODEbits.BRGH = 1;                // 0 is divide by 16, 1 is divide by 4
+    U1BRGbits.BRG = 129; 
+    U1MODEbits.MOD = 0;                 // Set to be asynchronous 8-bit UART
+    U1MODEHbits.STSEL = 0;              // Set # of stop bits to 1 
+
+//    // Disable then enable ESP to make sure GPIO0 is high on start
+//    LATBbits.LATB13 = 1;                // enable ESP 
+    
+    // Enable UART
+    U1MODEbits.UARTEN = 1;              // Enable UART
+    __delay_ms(4000);                   // Recommended delay after enabling UART
+    U1MODEbits.UTXEN = 1;               // Enable transmit bit
+    U1MODEbits.URXEN = 1;               // Enable receive bit     
     
 }

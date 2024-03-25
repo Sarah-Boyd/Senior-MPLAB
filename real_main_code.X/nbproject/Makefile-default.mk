@@ -44,6 +44,12 @@ else
 COMPARISON_BUILD=
 endif
 
+ifdef SUB_IMAGE_ADDRESS
+SUB_IMAGE_ADDRESS_COMMAND=--image-address $(SUB_IMAGE_ADDRESS)
+else
+SUB_IMAGE_ADDRESS_COMMAND=
+endif
+
 # Object Directory
 OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 
@@ -89,14 +95,14 @@ MP_LINKER_FILE_OPTION=,--script=p33CK256MP502.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/real_main_code.o: real_main_code.c  .generated_files/flags/default/26e388acde44657cad66c9bdac3ddfb1c088cdd .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/real_main_code.o: real_main_code.c  .generated_files/flags/default/7afdde487219445c9dd8fb53efcadd71f93da508 .generated_files/flags/default/e7b74f0c315654c3d0ba0328fff9568ab63219d9
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/real_main_code.o.d 
 	@${RM} ${OBJECTDIR}/real_main_code.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  real_main_code.c  -o ${OBJECTDIR}/real_main_code.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/real_main_code.o.d"      -g -D__DEBUG   -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/real_main_code.o: real_main_code.c  .generated_files/flags/default/865f1e166281880e7a99b954325a451f30e276aa .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/real_main_code.o: real_main_code.c  .generated_files/flags/default/c826d3eca8223f2b4a7dec6ead86e256228f3553 .generated_files/flags/default/e7b74f0c315654c3d0ba0328fff9568ab63219d9
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/real_main_code.o.d 
 	@${RM} ${OBJECTDIR}/real_main_code.o 
@@ -147,7 +153,7 @@ endif
 # Enable dependency checking
 .dep.inc: .depcheck-impl
 
-DEPFILES=$(wildcard ${POSSIBLE_DEPFILES})
+DEPFILES=$(shell mplabwildcard ${POSSIBLE_DEPFILES})
 ifneq (${DEPFILES},)
 include ${DEPFILES}
 endif

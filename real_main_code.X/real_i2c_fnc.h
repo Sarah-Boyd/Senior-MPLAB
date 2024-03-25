@@ -1,5 +1,5 @@
 //I2C FUNCTIONS----------------------------------------------------------------
-#define BRG      0x45
+//#define BRG      0x45
 #define I2CBRG   I2C3BRG
 #define I2CCONL  I2C3CONLbits
 #define I2CCONH  I2C3CONHbits
@@ -35,7 +35,7 @@ void i2c_init(void) {
     I2CCONL.I2CEN = 1; //enable the third I2C module
     
     //set clock
-    I2CBRG = BRG;
+    I2CBRG = 0x45;
     
     //I2C settings
     I2CCONL.A10M = 0; //client address is 7 bits
