@@ -166,19 +166,23 @@ int main(){
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
     i2c_init();
-    config_imu();
+    //config_imu();
     init_Timer1();
     init_ADC();
+<<<<<<< Updated upstream
     uart_Setup();
 //    
 //    init_pins();
 //    init_extInt();
+=======
+    
+    init_pins();
+    init_extInt();
+>>>>>>> Stashed changes
     
     //INITIALIZE IMU AND FUEL GAUGE
     //power_on_reset();
     config_fuelgauge();
-    
-   // reset_fuelgauge();
     
     //Setup();
     //BLESetup();
@@ -188,7 +192,9 @@ int main(){
         if(READ_BATTERY == 1){
             READ_BATTERY = 0;
             battery_soc = read_battery_soc();
+            read_config();
         }
+<<<<<<< Updated upstream
         if(READ_IMU == 1){
             READ_IMU = 0;
             read_IMU_data();
@@ -205,6 +211,17 @@ int main(){
             SEND_DATA = 0;
         }
         
+=======
+//        if(READ_IMU == 1){
+//            READ_IMU = 0;
+//            read_IMU_data();
+//        }
+//        if(READ_FSRS == 1){
+//            READ_FSRS = 0;
+//            read_AddIn();
+//            read_Sensor();
+//        } 
+>>>>>>> Stashed changes
     }
 }
 
@@ -489,18 +506,19 @@ void init_Timer1(void) {
 
 void init_pins(){
     PWR_PIN_SET = 0; //is an output
-    PWR_PIN = 1; // pin out is 0
+    PWR_PIN = 1; // pin out is high
     
     BLE_LED_PIN_SET = 0; //is an output
     BLE_LED_PIN = 0; //pin out is 0
 }
 
-void init_extInt(){
+void init_extInt(){    
+    
     //SET UP EXTERNAL INTTERUPT 2
     INTCON2bits.INT1EP = 1; //interrupt on falling edge
-    RPINR1bits.INT2R = BATTERY_INT_PIN; //set pin RP47 (INT_2)
+    RPINR1bits.INT2R = BATTERY_INT_PIN; //set pin RP38
     IFS1bits.INT2IF = 0;    //Reset INT2 interrupt flag 
-    IPC5bits.INT2IP = 1; //set priority 2
+    IPC5bits.INT2IP = 3; //set priority 3
     IEC1bits.INT2IE = 1;  //enable INT2
     
 }

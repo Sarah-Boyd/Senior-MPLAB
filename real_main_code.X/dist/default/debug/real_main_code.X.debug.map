@@ -4,6 +4,7 @@ Tool Name:
   c:\program files\microchip\xc16\v2.00\bin\bin\..\bin/elf-ld.exe
 
 Command:
+<<<<<<< Updated upstream
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.00 \
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.01 \
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.02 \
@@ -11,6 +12,15 @@ Command:
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.04 \
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.05 \
   -TC:\\Users\\sarah\\AppData\\Local\\Temp\\tmp00006f60.06 \
+=======
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.00 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.01 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.02 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.03 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.04 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.05 \
+  -TC:\\Users\\mered\\AppData\\Local\\Temp\\tmp00004d28.06 \
+>>>>>>> Stashed changes
   -p33CK256MP502 \
   --mdfp=C:/Users/sarah/.mchp_packs/Microchip/dsPIC33CK-MP_DFP/1.12.354/xc16 \
   -o \
@@ -166,6 +176,7 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
+<<<<<<< Updated upstream
 .text                        0x200              0x1b00          0x2880  (10368)
 .const                      0x1d00              0x20d8          0x3144  (12612)
 .text                       0x3dd8               0xb0a          0x108f  (4239)
@@ -173,6 +184,15 @@ section                    address   length (PC units)   length (bytes) (dec)
 .init.delay32               0x492c                0x1c            0x2a  (42)
 
                  Total "program" memory used (bytes):         0x6aec  (27372) 10%
+=======
+.text                        0x200               0x770           0xb28  (2856)
+.const                       0x970              0x20d2          0x313b  (12603)
+.text                       0x2a42               0x87a           0xcb7  (3255)
+.init.delay32               0x32bc                0x1c            0x2a  (42)
+.dinit                      0x32d8                0x18            0x24  (36)
+
+                 Total "program" memory used (bytes):         0x4968  (18792) 6%
+>>>>>>> Stashed changes
 
 
 "data" Memory  [Origin = 0x1000, Length = 0x6000]
@@ -313,8 +333,8 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000248                  __data_init
                   0x000248                  __data_init_extended
+<<<<<<< Updated upstream
                   0x0002fa                  __T1Interrupt
                   0x000342                  __INT1Interrupt
                   0x000360                  __INT2Interrupt
@@ -481,6 +501,98 @@ External Symbols in Program Memory (by name):
                   0x001378                  ___vsnprintf
                   0x000ec8                  ___vsprintf
                   0x001be2                  __dPropagateNaN
+=======
+                  0x000248                  __data_init
+                  0x0002fe                  __T1Interrupt
+                  0x000346                  __INT1Interrupt
+                  0x000364                  __INT2Interrupt
+                  0x00038c                  __MI2C3Interrupt
+                  0x0003c6                  __ADCAN0Interrupt
+                  0x0003f6                  __ADCAN3Interrupt
+                  0x000426                  __DefaultInterrupt
+                  0x00042c                  ___fixunssfsi
+                  0x000462                  ___floatsisf
+                  0x000468                  ___floatunsisf
+                  0x00046c                  __funpack
+                  0x000496                  ___subsf3
+                  0x000496                  ___subsf3x
+                  0x0004a8                  ___addsf3
+                  0x0004a8                  ___addsf3x
+                  0x000672                  ___mulsf3
+                  0x000672                  ___mulsf3x
+                  0x00077e                  __dnrmpackf
+                  0x0007d2                  __unpackdnrmf
+                  0x000830                  __typef
+                  0x000864                  __propnanf
+                  0x000876                  ___floatdisf
+                  0x000896                  ___floatundisf
+                  0x0008f4                  __fpack
+                  0x000940                  _strlen
+                  0x000a42                  _bmi270_config_file
+                  0x002a42                  _SendCmd
+                  0x002a9e                  _SendData
+                  0x002b34                  _ATResponse
+                  0x002b48                  _Setup
+                  0x002ba6                  _BLESetup
+                  0x002bd4                  _HandleData
+                  0x002bee                  _i2c_init
+                  0x002c08                  _i2c_start
+                  0x002c1a                  _i2c_rstart
+                  0x002c2c                  _i2c_stop
+                  0x002c3e                  _i2c_send
+                  0x002c56                  _i2c_ack
+                  0x002c68                  _i2c_read
+                  0x002c80                  _init_ADC
+                  0x002cfe                  _EnableADC
+                  0x002d3e                  _imu_check_config
+                  0x002d72                  _config_imu
+                  0x002db2                  _burst_write_config
+                  0x002dfe                  _read_imu
+                  0x002f08                  _imu_check
+                  0x002f3c                  _imu_init
+                  0x002f80                  _power_on_reset
+                  0x002f9e                  _config_fuelgauge
+                  0x002fbc                  _read_battery_soc
+                  0x003030                  _read_config
+                  0x003088                  _read_battery_voltage
+                  0x0030f6                  _main
+                  0x003176                  _read_IMU_data
+                  0x00317e                  _read_AddIn
+                  0x0031d6                  _read_Sensor
+                  0x003270                  _init_Timer1
+                  0x003294                  _init_pins
+                  0x0032a2                  _init_extInt
+                  0x0032bc                  ___delay32
+
+External Symbols in Program Memory (by name):
+
+                  0x002b34                  _ATResponse
+                  0x002ba6                  _BLESetup
+                  0x002cfe                  _EnableADC
+                  0x002bd4                  _HandleData
+                  0x002a42                  _SendCmd
+                  0x002a9e                  _SendData
+                  0x002b48                  _Setup
+                  0x0003c6                  __ADCAN0Interrupt
+                  0x0003f6                  __ADCAN3Interrupt
+                  0x000426                  __DefaultInterrupt
+                  0x000346                  __INT1Interrupt
+                  0x000364                  __INT2Interrupt
+                  0x00038c                  __MI2C3Interrupt
+                  0x0002fe                  __T1Interrupt
+                  0x0004a8                  ___addsf3
+                  0x0004a8                  ___addsf3x
+                  0x0032bc                  ___delay32
+                  0x00042c                  ___fixunssfsi
+                  0x000876                  ___floatdisf
+                  0x000462                  ___floatsisf
+                  0x000896                  ___floatundisf
+                  0x000468                  ___floatunsisf
+                  0x000672                  ___mulsf3
+                  0x000672                  ___mulsf3x
+                  0x000496                  ___subsf3
+                  0x000496                  ___subsf3x
+>>>>>>> Stashed changes
                   0x000248                  __data_init
                   0x000248                  __data_init_extended
                   0x001aec                  __dcompare
@@ -501,6 +613,7 @@ External Symbols in Program Memory (by name):
                   0x000860                  __propnanf
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
+<<<<<<< Updated upstream
                   0x00082c                  __typef
                   0x0007ce                  __unpackdnrmf
                   0x0013f2                  _atoi
@@ -540,6 +653,38 @@ External Symbols in Program Memory (by name):
                   0x00093c                  _strlen
                   0x00144c                  _tolower
                   0x00487c                  _uart_Setup
+=======
+                  0x000830                  __typef
+                  0x0007d2                  __unpackdnrmf
+                  0x000a42                  _bmi270_config_file
+                  0x002db2                  _burst_write_config
+                  0x002f9e                  _config_fuelgauge
+                  0x002d72                  _config_imu
+                  0x002c56                  _i2c_ack
+                  0x002bee                  _i2c_init
+                  0x002c68                  _i2c_read
+                  0x002c1a                  _i2c_rstart
+                  0x002c3e                  _i2c_send
+                  0x002c08                  _i2c_start
+                  0x002c2c                  _i2c_stop
+                  0x002f08                  _imu_check
+                  0x002d3e                  _imu_check_config
+                  0x002f3c                  _imu_init
+                  0x002c80                  _init_ADC
+                  0x003270                  _init_Timer1
+                  0x0032a2                  _init_extInt
+                  0x003294                  _init_pins
+                  0x0030f6                  _main
+                  0x002f80                  _power_on_reset
+                  0x00317e                  _read_AddIn
+                  0x003176                  _read_IMU_data
+                  0x0031d6                  _read_Sensor
+                  0x002fbc                  _read_battery_soc
+                  0x003088                  _read_battery_voltage
+                  0x003030                  _read_config
+                  0x002dfe                  _read_imu
+                  0x000940                  _strlen
+>>>>>>> Stashed changes
 
 Memory Configuration
 
@@ -905,6 +1050,7 @@ __FBTSEQ
 .comment
  *(.comment)
 
+<<<<<<< Updated upstream
 .debug_info       0x000000       0x5776
  *(.debug_info)
  .debug_info      0x000000       0x47aa build/default/debug/real_main_code.o
@@ -1006,6 +1152,67 @@ __FBTSEQ
 .debug_str        0x000000        0x27c
  *(.debug_str)
  .debug_str       0x000000        0x27c build/default/debug/real_main_code.o
+=======
+.debug_info       0x000000       0x4e0d
+ *(.debug_info)
+ .debug_info      0x000000       0x466e build/default/debug/real_main_code.o
+ .debug_info      0x00466e         0x90 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+ .debug_info      0x0046fe         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_info      0x00478d         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_info      0x00481e         0x8d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_info      0x0048ab         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
+ .debug_info      0x004948         0x9d c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_info      0x0049e5         0xa0 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_info      0x004a85         0xa2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_info      0x004b27         0x9c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_info      0x004bc3         0x9f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_info      0x004c62         0x8f c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_info      0x004cf1         0x91 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_info      0x004d82         0x8b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev     0x000000        0x33d
+ *(.debug_abbrev)
+ .debug_abbrev    0x000000        0x239 build/default/debug/real_main_code.o
+ .debug_abbrev    0x000239         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+ .debug_abbrev    0x00024d         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_abbrev    0x000261         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_abbrev    0x000275         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_abbrev    0x000289         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
+ .debug_abbrev    0x00029d         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_abbrev    0x0002b1         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_abbrev    0x0002c5         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_abbrev    0x0002d9         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_abbrev    0x0002ed         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_abbrev    0x000301         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_abbrev    0x000315         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_abbrev    0x000329         0x14 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+
+.debug_line       0x000000        0x992
+ *(.debug_line)
+ .debug_line      0x000000        0x3d6 build/default/debug/real_main_code.o
+ .debug_line      0x0003d6         0x53 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fixunssfsi.CH_o)
+ .debug_line      0x000429         0x3a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatsisf.CH_o)
+ .debug_line      0x000463         0x3b c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatunsisf.CH_o)
+ .debug_line      0x00049e         0x4a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(funpack.CH_o)
+ .debug_line      0x0004e8        0x136 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(addsf3x.CH_o)
+ .debug_line      0x00061e         0xcc c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(mulsf3x.CH_o)
+ .debug_line      0x0006ea         0x72 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(dnrmpackfx.CH_o)
+ .debug_line      0x00075c         0x7a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(unpackdnrmfx.CH_o)
+ .debug_line      0x0007d6         0x5e c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(typefx.CH_o)
+ .debug_line      0x000834         0x51 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(propnanfx.CH_o)
+ .debug_line      0x000885         0x47 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatdisf.CH_o)
+ .debug_line      0x0008cc         0x6c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(floatundisf.CH_o)
+ .debug_line      0x000938         0x5a c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(fpack.CH_o)
+
+.debug_frame      0x000000        0x49c
+ *(.debug_frame)
+ .debug_frame     0x000000        0x49c build/default/debug/real_main_code.o
+
+.debug_str        0x000000        0x260
+ *(.debug_str)
+ .debug_str       0x000000        0x260 build/default/debug/real_main_code.o
+>>>>>>> Stashed changes
 
 .debug_loc
  *(.debug_loc)
@@ -1014,10 +1221,17 @@ __FBTSEQ
  *(.debug_macinfo)
 
 .debug_pubnames
+<<<<<<< Updated upstream
                   0x000000        0x50f
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000        0x50f build/default/debug/real_main_code.o
+=======
+                  0x000000        0x4d0
+ *(.debug_pubnames)
+ .debug_pubnames
+                  0x000000        0x4d0 build/default/debug/real_main_code.o
+>>>>>>> Stashed changes
 
 .debug_ranges
  *(.debug_ranges)
@@ -4628,6 +4842,7 @@ __c30_signature
  .const             0x9d00       0x20d8 build/default/debug/real_main_code.o
                     0x9dd2                  _bmi270_config_file
 
+<<<<<<< Updated upstream
 .text             0x003dd8        0xb0a
  .text            0x003dd8        0xb0a build/default/debug/real_main_code.o
                   0x003dd8                  _SendCmd
@@ -4673,3 +4888,47 @@ __c30_signature
 .init.delay32     0x00492c         0x1c
  .init.delay32    0x00492c         0x1c c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
                   0x00492c                  ___delay32
+=======
+.text             0x002a42        0x87a
+ .text            0x002a42        0x87a build/default/debug/real_main_code.o
+                  0x002a42                  _SendCmd
+                  0x002a9e                  _SendData
+                  0x002b34                  _ATResponse
+                  0x002b48                  _Setup
+                  0x002ba6                  _BLESetup
+                  0x002bd4                  _HandleData
+                  0x002bee                  _i2c_init
+                  0x002c08                  _i2c_start
+                  0x002c1a                  _i2c_rstart
+                  0x002c2c                  _i2c_stop
+                  0x002c3e                  _i2c_send
+                  0x002c56                  _i2c_ack
+                  0x002c68                  _i2c_read
+                  0x002c80                  _init_ADC
+                  0x002cfe                  _EnableADC
+                  0x002d3e                  _imu_check_config
+                  0x002d72                  _config_imu
+                  0x002db2                  _burst_write_config
+                  0x002dfe                  _read_imu
+                  0x002f08                  _imu_check
+                  0x002f3c                  _imu_init
+                  0x002f80                  _power_on_reset
+                  0x002f9e                  _config_fuelgauge
+                  0x002fbc                  _read_battery_soc
+                  0x003030                  _read_config
+                  0x003088                  _read_battery_voltage
+                  0x0030f6                  _main
+                  0x003176                  _read_IMU_data
+                  0x00317e                  _read_AddIn
+                  0x0031d6                  _read_Sensor
+                  0x003270                  _init_Timer1
+                  0x003294                  _init_pins
+                  0x0032a2                  _init_extInt
+
+.init.delay32     0x0032bc         0x1c
+ .init.delay32    0x0032bc         0x1c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(delay32ch.Meo)
+                  0x0032bc                  ___delay32
+
+.dinit            0x0032d8         0x18
+ .dinit           0x0032d8         0x18 data_init
+>>>>>>> Stashed changes

@@ -23,25 +23,25 @@ void power_on_reset(void){
 void config_fuelgauge(void){
 	/////////write configuration register//////////////
 	i2c_start();
-	i2c_send(0x6C);    //write MAX
+	i2c_send(FUEL_W);    //write MAX
 	i2c_send(0x0C);    //mode register
 	i2c_send(0x97); 
-	i2c_send(0x1E);    //set alert to 1%
+	i2c_send(0x00);    //set alert to 1%
 	//i2c_stop();	
     
     __delay_ms(1);
 }
-
-void reset_fuelgauge(void){
-	/////////write configuration register//////////////
-	i2c_start();
-	i2c_send(0x6C);    //write MAX
-	i2c_send(0xFE);
-	i2c_send(0x54); 
-	i2c_send(0x00);    //set alert to 32%
-	i2c_stop();
-	i2c_start();	
-}
+//
+//void reset_fuelgauge(void){
+//	/////////write configuration register//////////////
+//	i2c_start();
+//	i2c_send(0x6C);    //write MAX
+//	i2c_send(0xFE);
+//	i2c_send(0x54); 
+//	i2c_send(0x00);    //set alert to 32%
+//	i2c_stop();
+//	i2c_start();	
+//}
 
 float read_battery_soc(void){		
     uint8_t xm, xl,xo;
