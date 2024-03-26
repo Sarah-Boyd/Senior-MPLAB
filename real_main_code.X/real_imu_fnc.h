@@ -37,7 +37,7 @@ volatile int gyr_y;
 volatile int gyr_z1;
 volatile int gyr_z2;
 volatile int gyr_z;
-volatile float imu_data[] = {0,0,0,0,0,0};
+volatile float imu_data[] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
 void imu_init(void);
 void imu_check(void);
@@ -197,12 +197,25 @@ void read_imu(void){
     i2c_stop();
     
     //put the data into an array
-    imu_data[0] = acc_x2|(acc_x1 << 8);
-    imu_data[1] = acc_y2|(acc_y1 << 8);
-    imu_data[2] = acc_z2|(acc_z1 << 8);
-    imu_data[3] = gyr_x2|(gyr_x1 << 8);
-    imu_data[4] = gyr_y2|(gyr_y1 << 8);
-    imu_data[5] = gyr_z2|(gyr_z1 << 8);
+//    imu_data[0] = acc_x2|(acc_x1 << 8);
+//    imu_data[1] = acc_y2|(acc_y1 << 8);
+//    imu_data[2] = acc_z2|(acc_z1 << 8);
+//    imu_data[3] = gyr_x2|(gyr_x1 << 8);
+//    imu_data[4] = gyr_y2|(gyr_y1 << 8);
+//    imu_data[5] = gyr_z2|(gyr_z1 << 8);
+    
+    imu_data[0] = acc_x2;
+    imu_data[1] = acc_x1;
+    imu_data[2] = acc_y2;
+    imu_data[3] = acc_y1;
+    imu_data[4] = acc_z2;
+    imu_data[5] = acc_z1;
+    imu_data[6] = gyr_x2;
+    imu_data[7] = gyr_x1;
+    imu_data[8] = gyr_y2;
+    imu_data[9] = gyr_y1;
+    imu_data[10] = gyr_z2;
+    imu_data[11] = gyr_z1;
 }
 
 void imu_check(void){

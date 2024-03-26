@@ -120,8 +120,8 @@ volatile int IMU_COUNT = 0;
 volatile int SEND_DATA = 0;
 
 //SENSOR DATA
-volatile float acceleration[] = {0,0,0}; //acceleration data from the IMU
-volatile float angular_velocity[] = {0,0,0}; //gyroscope data from the IMU
+volatile float acceleration[] = {0,0,0,0,0,0}; //acceleration data from the IMU
+volatile float angular_velocity[] = {0,0,0,0,0,0}; //gyroscope data from the IMU
 volatile float FSRs[] = {0,0,0,0,0,0,0,0}; //FSR data
 volatile float battery_voltage;
 volatile float battery_soc;
@@ -142,6 +142,7 @@ void init_extInt1(void);
 void init_extInt2(void);
 void init_Timer1(void);
 void uart_Setup(void);
+void init_extInt(void);
 
 //MISC FUNCTIONS
 void read_AddIn(void);
@@ -238,9 +239,15 @@ void read_IMU_data(void){
     acceleration[0] = imu_data[0];
     acceleration[1] = imu_data[1];
     acceleration[2] = imu_data[2];
-    angular_velocity[0] = imu_data[0];
-    angular_velocity[1] = imu_data[1];
-    angular_velocity[2] = imu_data[2];
+    acceleration[3] = imu_data[3];
+    acceleration[4] = imu_data[4];
+    acceleration[5] = imu_data[5];
+    angular_velocity[0] = imu_data[6];
+    angular_velocity[1] = imu_data[7];
+    angular_velocity[2] = imu_data[8];
+    angular_velocity[3] = imu_data[9];
+    angular_velocity[4] = imu_data[10];
+    angular_velocity[5] = imu_data[11];
     
 }
 
@@ -274,10 +281,10 @@ void read_AddIn(void){
 }
 
 void read_Sensor(void){
+    float fsr1;
+    float fsr2;
     float fsr3;
     float fsr4;
-    float fsr5;
-    float fsr6;
     
     
     i2c_start();
@@ -288,7 +295,7 @@ void read_Sensor(void){
     i2c_read(SENSOR_R);
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
-    fsr3 = DATA_R;
+    fsr1 = DATA_R;
     I2CCONL.ACKDT = 0;
     i2c_ack(); 
   
@@ -296,35 +303,35 @@ void read_Sensor(void){
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
-    fsr4 = DATA_R;
+    fsr2 = DATA_R;
     i2c_ack();
 
     //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
-    fsr5 = DATA_R;
+    fsr3 = DATA_R;
     i2c_ack();
                
     //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
-    fsr6 = DATA_R;
+    fsr4 = DATA_R;
     I2CCONL.ACKDT = 1;
     i2c_ack();
     i2c_stop();
                
                
+    FSRs[0] = fsr1;
+    FSRs[1] = fsr2;
     FSRs[2] = fsr3;
     FSRs[3] = fsr4;
-    FSRs[4] = fsr5;
-    FSRs[5] = fsr6;
 }
 
 void send_Data(void){
 
-    char data_string[10];
+    char data_string[10] = {0,0,0,0,0,0,0,0,0,0};
     
     // SEND FSR DATA FIRST
     for (int i=0; i<8; i++){
@@ -336,10 +343,10 @@ void send_Data(void){
             }
         }
     }
-    
+        
     // IMU DATA NEXT
     // acceleration data first
-    for (int i=0; i<3; i++){
+    for (int i=0; i<6; i++){
         sprintf(data_string, "%.7f", acceleration[i]);
         for (int j=0; j<strlen(data_string); j++){
             U1TXREG = data_string[j]; // Send character
@@ -350,7 +357,7 @@ void send_Data(void){
     }
     
     // now gyroscope data
-    for (int i=0; i<3; i++){
+    for (int i=0; i<6; i++){
         sprintf(data_string, "%.7f", angular_velocity[i]);
         for (int j=0; j<strlen(data_string); j++){
             U1TXREG = data_string[j]; // Send character
@@ -431,6 +438,8 @@ void __attribute__((interrupt, no_auto_psv)) _ADCAN0Interrupt(void)
     dataAN0 = ADCBUF0; // read conversion result
     fsr_o6 = (float)dataAN0 * (float)(3.3/(float)4096); //Convert digital to voltage value
     _ADCAN0IF = 0; // clear interrupt flag
+    
+    FSRs[5] = fsr_o6;
 }
 
 void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void) {
@@ -439,6 +448,8 @@ void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void) {
             
     //Clear interrupt flag
     IFS5bits.ADCAN3IF = 0;
+    
+    FSRs[4] = fsr_o5;
 }
 
 //void _ISR _U1RXInterrupt(void){
@@ -481,7 +492,7 @@ void init_Timer1(void) {
     PR1 = 0x0900; //go back to 0x0900 for speedy I2C
 }
 
-void init_pins(){
+void init_pins(void){
     PWR_PIN_SET = 0; //is an output
     PWR_PIN = 1; // pin out is high
     
@@ -489,7 +500,7 @@ void init_pins(){
     BLE_LED_PIN = 0; //pin out is 0
 }
 
-void init_extInt(){    
+void init_extInt(void){    
     
     //SET UP EXTERNAL INTTERUPT 2
     INTCON2bits.INT1EP = 1; //interrupt on falling edge
