@@ -166,22 +166,15 @@ int main(){
     
     //INTIALIZE INTERRUPTS AND FUNCTIONS
     i2c_init();
-    //config_imu();
+    config_imu();
     init_Timer1();
     init_ADC();
-<<<<<<< Updated upstream
-    uart_Setup();
-//    
-//    init_pins();
-//    init_extInt();
-=======
+    uart_Setup(); 
     
     init_pins();
     init_extInt();
->>>>>>> Stashed changes
     
     //INITIALIZE IMU AND FUEL GAUGE
-    //power_on_reset();
     config_fuelgauge();
     
     //Setup();
@@ -194,7 +187,6 @@ int main(){
             battery_soc = read_battery_soc();
             read_config();
         }
-<<<<<<< Updated upstream
         if(READ_IMU == 1){
             READ_IMU = 0;
             read_IMU_data();
@@ -203,25 +195,12 @@ int main(){
             READ_FSRS = 0;
             read_AddIn();
             read_Sensor();
-            SEND_DATA = 1;
         }
         
         if(SEND_DATA == 1){
             send_Data();
             SEND_DATA = 0;
         }
-        
-=======
-//        if(READ_IMU == 1){
-//            READ_IMU = 0;
-//            read_IMU_data();
-//        }
-//        if(READ_FSRS == 1){
-//            READ_FSRS = 0;
-//            read_AddIn();
-//            read_Sensor();
-//        } 
->>>>>>> Stashed changes
     }
 }
 
@@ -242,13 +221,12 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
         FSR_COUNT = 0;
         READ_FSRS = 1;
     }
-    
     if(IMU_COUNT == 1){
+        SEND_DATA = 1;
         IMU_COUNT = 0;
         READ_IMU = 1;
     }
-    
-    if(BATTERY_COUNT == 80){
+    if(BATTERY_COUNT == 700){
         BATTERY_COUNT = 0;
         READ_BATTERY = 1;
     }
@@ -257,18 +235,18 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 void read_IMU_data(void){
     //IMU DATA
     read_imu();
-//    acceleration[0] = imu_data[0];
-//    acceleration[1] = imu_data[1];
-//    acceleration[2] = imu_data[2];
-//    angular_velocity[0] = imu_data[0];
-//    angular_velocity[1] = imu_data[1];
-//    angular_velocity[2] = imu_data[2];
+    acceleration[0] = imu_data[0];
+    acceleration[1] = imu_data[1];
+    acceleration[2] = imu_data[2];
+    angular_velocity[0] = imu_data[0];
+    angular_velocity[1] = imu_data[1];
+    angular_velocity[2] = imu_data[2];
     
 }
 
 void read_AddIn(void){
     float fsr7;
-    //float fsr8;
+    float fsr8;
     
     
     i2c_start();
@@ -283,17 +261,16 @@ void read_AddIn(void){
     I2CCONL.ACKDT = 0;
     i2c_ack(); 
   
-    //__delay_ms(1);
             
     I2CCONL.RCEN = 1;
     while(I2CCONL.RCEN == 1);
-    fsr7 = DATA_R;
+    fsr8 = DATA_R;
     I2CCONL.ACKDT = 1;
     i2c_ack();
     i2c_stop();
                
     FSRs[6] = fsr7;
-    //FSRs[7] = fsr8; // I don't think we actually read fsr8
+    FSRs[7] = fsr8;
 }
 
 void read_Sensor(void){

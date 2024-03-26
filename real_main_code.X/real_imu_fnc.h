@@ -197,12 +197,12 @@ void read_imu(void){
     i2c_stop();
     
     //put the data into an array
-//    imu_data[0] = acc_x2|(acc_x1 << 8);
-//    imu_data[1] = acc_y2|(acc_y1 << 8);
-//    imu_data[2] = acc_z2|(acc_z1 << 8);
-//    imu_data[3] = gyr_x2|(gyr_x1 << 8);
-//    imu_data[4] = gyr_y2|(gyr_y1 << 8);
-//    imu_data[5] = gyr_z2|(gyr_z1 << 8);
+    imu_data[0] = acc_x2|(acc_x1 << 8);
+    imu_data[1] = acc_y2|(acc_y1 << 8);
+    imu_data[2] = acc_z2|(acc_z1 << 8);
+    imu_data[3] = gyr_x2|(gyr_x1 << 8);
+    imu_data[4] = gyr_y2|(gyr_y1 << 8);
+    imu_data[5] = gyr_z2|(gyr_z1 << 8);
 }
 
 void imu_check(void){
