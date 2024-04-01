@@ -16,6 +16,9 @@
 #define IMU_W    0xD0
 #define IMU_R    0xD1
 #define IMU_REG  0x0C
+#define GYRO_POST 0x3C
+
+#include <math.h>
 
 
 //IMU DATA
@@ -37,7 +40,8 @@ volatile int gyr_y;
 volatile int gyr_z1;
 volatile int gyr_z2;
 volatile int gyr_z;
-volatile float imu_data[] = {0,0,0,0,0,0,0,0,0,0,0,0};
+volatile float imu_data[] = {0,0,0,0,0,0};
+volatile int gyro_factor;
 
 void imu_init(void);
 void imu_check(void);
@@ -196,26 +200,27 @@ void read_imu(void){
     i2c_ack();
     i2c_stop();
     
-    //put the data into an array
-//    imu_data[0] = acc_x2|(acc_x1 << 8);
-//    imu_data[1] = acc_y2|(acc_y1 << 8);
-//    imu_data[2] = acc_z2|(acc_z1 << 8);
-//    imu_data[3] = gyr_x2|(gyr_x1 << 8);
-//    imu_data[4] = gyr_y2|(gyr_y1 << 8);
-//    imu_data[5] = gyr_z2|(gyr_z1 << 8);
+    //read the gyroscope post processing register
+    i2c_start();
+    i2c_send(IMU_W);
+    i2c_send(GYRO_POST);
+    i2c_rstart();
+    received = 0;
+    i2c_read(IMU_R);
+    I2CCONL.RCEN = 1; //enable a read
+    while(I2CCONL.RCEN == 1);
+    gyro_factor = DATA_R;
+    I2CCONL.ACKDT = 1; //send a NACK
+    i2c_ack();
+    i2c_stop();
     
-    imu_data[0] = acc_x2;
-    imu_data[1] = acc_x1;
-    imu_data[2] = acc_y2;
-    imu_data[3] = acc_y1;
-    imu_data[4] = acc_z2;
-    imu_data[5] = acc_z1;
-    imu_data[6] = gyr_x2;
-    imu_data[7] = gyr_x1;
-    imu_data[8] = gyr_y2;
-    imu_data[9] = gyr_y1;
-    imu_data[10] = gyr_z2;
-    imu_data[11] = gyr_z1;
+    //put the data into an array
+    imu_data[0] = (acc_x2<<8) + acc_x1;
+    imu_data[1] = (acc_y2<<8) + acc_y1;
+    imu_data[2] = (acc_z2<<8) + acc_z1;
+    imu_data[3] = (gyr_x2<<8) + gyr_x1-gyro_factor*((gyr_z2<<8)+gyr_z1)/pow(2,9);
+    imu_data[4] = (gyr_y2<<8) + gyr_y1;
+    imu_data[5] = (gyr_z2<<8) + gyr_z1;
 }
 
 void imu_check(void){

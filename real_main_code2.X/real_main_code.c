@@ -53,11 +53,11 @@
 #include <p33CK256MP502.h>
 #include "libpic30.h"
 #include "string.h"
-#include "real_ble.h"
+#include "real_ble_fnc.h"
 #include "real_config.h"
 #include "real_i2c_fnc.h"
 #include "real_adc_fnc.h"
-#include "real_imu_fnc.h"
+#include "real_imu.h"
 #include "real_fuel_gauge.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -120,12 +120,12 @@ volatile int IMU_COUNT = 0;
 volatile int SEND_DATA = 0;
 
 //SENSOR DATA
-volatile float acceleration[] = {0,0,0,0,0,0}; //acceleration data from the IMU
-volatile float angular_velocity[] = {0,0,0,0,0,0}; //gyroscope data from the IMU
+volatile float acceleration[] = {0,0,0}; //acceleration data from the IMU
+volatile float angular_velocity[] = {0,0,0}; //gyroscope data from the IMU
 volatile float FSRs[] = {0,0,0,0,0,0,0,0}; //FSR data
 volatile float battery_voltage;
 volatile float battery_soc;
-volatile float battery_soc_v;
+volatile float config;
 
 //INTERRUPT SERVICE ROUTINES
 void __attribute__((interrupt, no_auto_psv)) _ADCAN1Interrupt(void);
@@ -175,7 +175,6 @@ int main(){
     init_pins();
     init_extInt();
     
-    //INITIALIZE IMU AND FUEL GAUGE
     config_fuelgauge();
     
     //Setup();
@@ -186,7 +185,7 @@ int main(){
         if(READ_BATTERY == 1){
             READ_BATTERY = 0;
             battery_soc = read_battery_soc();
-            read_config();
+            config = read_config();
         }
         if(READ_IMU == 1){
             READ_IMU = 0;
@@ -236,18 +235,12 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
 void read_IMU_data(void){
     //IMU DATA
     read_imu();
-    acceleration[0] = imu_data[0];
-    acceleration[1] = imu_data[1];
-    acceleration[2] = imu_data[2];
-    acceleration[3] = imu_data[3];
-    acceleration[4] = imu_data[4];
-    acceleration[5] = imu_data[5];
-    angular_velocity[0] = imu_data[6];
-    angular_velocity[1] = imu_data[7];
-    angular_velocity[2] = imu_data[8];
-    angular_velocity[3] = imu_data[9];
-    angular_velocity[4] = imu_data[10];
-    angular_velocity[5] = imu_data[11];
+    acceleration[0] = imu_data[0]/16384;
+    acceleration[1] = imu_data[1]/16384;
+    acceleration[2] = imu_data[2]/16384;
+    angular_velocity[0] = imu_data[3];
+    angular_velocity[1] = imu_data[4];
+    angular_velocity[2] = imu_data[5];
     
 }
 
@@ -323,10 +316,10 @@ void read_Sensor(void){
     i2c_stop();
                
                
-    FSRs[0] = fsr1;
-    FSRs[1] = fsr2;
-    FSRs[2] = fsr3;
-    FSRs[3] = fsr4;
+    FSRs[0] = (float)fsr1 * (float)(3.3/(float)4096);;
+    FSRs[1] = (float)fsr2 * (float)(3.3/(float)4096);
+    FSRs[2] = (float)fsr3 * (float)(3.3/(float)4096);
+    FSRs[3] = (float)fsr4 * (float)(3.3/(float)4096);
 }
 
 void send_Data(void){
@@ -387,21 +380,6 @@ void send_Data(void){
 }
 
 //INTERRUPT SERVICE ROUTINES
-
-void __attribute__((interrupt, no_auto_psv)) _INT1Interrupt(void) {
-    //BLE BUTTON TO INITIATE BLE CONNECTION
-    if (BLE_LED_ON == 1){
-       BLE_LED_PIN = 0;
-       BLE_LED_ON = 0;
-    }
-    else{
-       BLE_LED_PIN = 1; 
-       BLE_LED_ON = 1;
-    }
-        
- 
-    IFS0bits.INT1IF = 0;    //Reset INT1 interrupt flag
-}
 
 void __attribute__((interrupt, no_auto_psv)) _INT2Interrupt(void) {
     //BATTERY IS LOW, SHUT IT OFFFFFFFFF
@@ -489,7 +467,7 @@ void init_Timer1(void) {
 
     IPC0bits.T1IP = 1;
     IEC0bits.T1IE = 1;
-    PR1 = 0x0900; //go back to 0x0900 for speedy I2C
+    PR1 = 0x0300; //go back to 0x0900 for speedy I2C
 }
 
 void init_pins(void){
@@ -506,7 +484,7 @@ void init_extInt(void){
     INTCON2bits.INT1EP = 1; //interrupt on falling edge
     RPINR1bits.INT2R = BATTERY_INT_PIN; //set pin RP38
     IFS1bits.INT2IF = 0;    //Reset INT2 interrupt flag 
-    IPC5bits.INT2IP = 3; //set priority 3
+    IPC5bits.INT2IP = 7; //set priority 3
     IEC1bits.INT2IE = 1;  //enable INT2
     
 }

@@ -26,7 +26,7 @@ void config_fuelgauge(void){
 	i2c_send(FUEL_W);    //write MAX
 	i2c_send(0x0C);    //mode register
 	i2c_send(0x97); 
-	i2c_send(0x00);    //set alert to 1%
+	i2c_send(0x1F);    //set alert to 1%
 	//i2c_stop();	
     
     __delay_ms(1);
