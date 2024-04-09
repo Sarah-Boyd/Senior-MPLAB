@@ -77,14 +77,12 @@ void config_imu(void){
     i2c_send(PWR_CONF);
     i2c_send(0x00); // Reset
     i2c_stop();
-    __delay_ms(500);
 
     i2c_start();
     i2c_send(IMU_W);
     i2c_send(INT_CNTRL);
     i2c_send(0x00); // Power on
     i2c_stop();
-    __delay_ms(100);
     
     burst_write_config();
     

@@ -43,6 +43,7 @@ void i2c_init(void) {
     //Enable MI2C Interrupt
     MI2C_E = 1; //enable the interrupt
     MI2C_F = 0; // lower the flag
+    IPC35bits.MI2C3IP = 2;
     I2CCONH.PCIE = 1; //enable interrupt on stop condition
     I2CCONH.SCIE = 1; //enable interrupt on start condition
 }
@@ -50,13 +51,13 @@ void i2c_init(void) {
 void i2c_start(void){
     started = 0;
     I2CCONL.SEN = 1; // assert a start condition
-    while(started == 0); //wait for the start condition to complete
+    //while(started == 0); //wait for the start condition to complete
 }
 
 void i2c_rstart(void){
     started = 0;
     I2CCONL.RSEN = 1; //assert a repeated start
-    while(started == 0);
+    //while(started == 0);
 }
 
 void i2c_stop(void){
@@ -68,7 +69,7 @@ void i2c_send(int data) {
     sending = 1; //sending data so raise the flag
     DATA_W = data; //add data to register
 
-   while(sending == 1); //wait until data transfer is complete
+   //while(sending == 1); //wait until data transfer is complete
 }
 
 void i2c_ack(void){
@@ -79,6 +80,6 @@ void i2c_ack(void){
 void i2c_read(int data) {
     received = 0; //sending data so raise the flag
     DATA_W = data; //add data to register
-    while(received == 0); //wait until data transfer is complete
+    //while(received == 0); //wait until data transfer is complete
     received = 0;
 }

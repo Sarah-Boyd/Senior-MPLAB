@@ -173,12 +173,10 @@ int main(){
     uart_Setup(); 
     
     init_pins();
-    init_extInt();
+    //init_extInt();
     
     config_fuelgauge();
     
-    //Setup();
-    //BLESetup();
     // Send AT commands on a button press
     while(1){
         BLE_LED_PIN = 1;
@@ -430,33 +428,6 @@ void __attribute__((interrupt, no_auto_psv)) _ADCAN3Interrupt(void) {
     FSRs[4] = fsr_o5;
 }
 
-//void _ISR _U1RXInterrupt(void){
-//    if (U1RXREG == 0x4B){
-//        ATFlag = 0; // Received K! Lower flag to send next command
-//    }
-//    if (U1RXREG == 0x3E){//check for > sign
-//        dataFlag = 0; // Ready for data!!
-//        ATFlag = 0;
-//    }
-//    else if (U1RXREG == 0x43){
-//        conCount++;
-//    }
-//    else if (U1RXREG == 0x4F && conCount == 1){
-//        conCount++;
-//    }
-//    else if (U1RXREG == 0x4E && conCount == 2){
-//        conCount++;
-//    }
-//    else if (U1RXREG == 0x4E && conCount == 3){
-//        conFlag = 0; // connection has been established!
-//        conCount = 0;
-//    }
-//    else {
-//        conCount = 0;
-//    }
-//    rxFlag = 0; // Lower interrupt flag
-//}
-
 //INITIALIZATION FUNCTIONS
 void init_Timer1(void) {
     
@@ -465,9 +436,9 @@ void init_Timer1(void) {
     T1CONbits.TCS = 0;
     T1CONbits.TSYNC = 0;
 
-    IPC0bits.T1IP = 1;
+    IPC0bits.T1IP = 2;
     IEC0bits.T1IE = 1;
-    PR1 = 0x0300; //go back to 0x0900 for speedy I2C
+    PR1 = 0x0900; //go back to 0x0900 for speedy I2C
 }
 
 void init_pins(void){
@@ -475,7 +446,7 @@ void init_pins(void){
     PWR_PIN = 1; // pin out is high
     
     BLE_LED_PIN_SET = 0; //is an output
-    BLE_LED_PIN = 0; //pin out is 0
+    BLE_LED_PIN = 1; //pin out is 0
 }
 
 void init_extInt(void){    
@@ -484,7 +455,7 @@ void init_extInt(void){
     INTCON2bits.INT1EP = 1; //interrupt on falling edge
     RPINR1bits.INT2R = BATTERY_INT_PIN; //set pin RP38
     IFS1bits.INT2IF = 0;    //Reset INT2 interrupt flag 
-    IPC5bits.INT2IP = 7; //set priority 3
+    IPC5bits.INT2IP = 1; //set priority 3
     IEC1bits.INT2IE = 1;  //enable INT2
     
 }

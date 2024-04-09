@@ -194,6 +194,6 @@ void init_Timer1(void) {
     T1CONbits.TSYNC = 0;
 
     IPC0bits.T1IP = 1;
-    IEC0bits.T1IE = 13
-    PR1 = 0x0100; //2048 clock cycle rollover
+    IEC0bits.T1IE = 13;
+    PR1 = 0x0900; //2048 clock cycle rollover
 }
